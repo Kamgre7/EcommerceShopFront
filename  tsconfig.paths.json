@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "types": [
+        "../shop-nest-back/src/types"
+      ]
+    }
+  }
+}
