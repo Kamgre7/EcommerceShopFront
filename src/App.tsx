@@ -12,6 +12,7 @@ import { LoginForm } from './components/Forms/LoginForm';
 import { NotFoundView } from './View/NotFoundView';
 import { ForgotPasswordForm } from './components/Forms/ForgotPasswordForm';
 import { RegisterForm } from './components/Forms/RegisterForm';
+import { Footer } from './components/Footer/Footer';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -52,5 +53,7 @@ export const App = () => (
       /> */}
       <Route path="/*" element={<NotFoundView />} />
     </Routes>
+
+    <Footer />
   </ChakraProvider>
 );
