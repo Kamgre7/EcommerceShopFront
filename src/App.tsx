@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   ChakraProvider,
   Box,
-  Grid,
   theme, Flex,
 } from '@chakra-ui/react';
 import { Route, Routes } from 'react-router-dom';
@@ -16,9 +15,8 @@ import { Footer } from './components/Footer/Footer';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="10vh" p={3}>
+    <Flex direction="column" minH="100vh">
+      <Box textAlign="center" fontSize="xl" minH="10vh" p={3}>
         <Flex
           width="100%"
           justify="space-between"
@@ -26,11 +24,12 @@ export const App = () => (
           <Header />
           <ColorModeSwitcher justifySelf="flex-end" alignSelf="center" />
         </Flex>
-      </Grid>
-    </Box>
+      </Box>
 
-    <Routes>
-      {/* <Route path="/product" element={<ProductView />} />
+      <Flex minH="80vh" justify="center" align="flex-start" flexGrow={1}>
+
+        <Routes>
+          {/* <Route path="/product" element={<ProductView />} />
       <Route path="/product/:id" element={<SingleProductDetails />} />
       <Route path="/product/form" element={<AddProductForm />} />
       <Route path="/category/" element={<CategoryView />} />
@@ -38,22 +37,27 @@ export const App = () => (
       <Route path="/ranking" element={<RankingView />} />
       <Route path="/cart" element={<CartView />} />
       <Route path="/removing-list" element={<RemovingListView />} /> */}
-      {/*
+          {/*
       <Route path="/register" element={<RegisterForm />} />
 */}
-      <Route path="/login" element={<LoginForm />} />
-      <Route path="/restart-password" element={<ForgotPasswordForm />} />
-      <Route path="/register" element={<RegisterForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/restart-password" element={<ForgotPasswordForm />} />
+          <Route path="/register" element={<RegisterForm />} />
 
-      {/*     <Route
+          {/*     <Route
         path="/"
         element={
           <Navigate replace to="/product" />
           }
       /> */}
-      <Route path="/*" element={<NotFoundView />} />
-    </Routes>
+          <Route path="/*" element={<NotFoundView />} />
+        </Routes>
+      </Flex>
 
-    <Footer />
+      <Flex alignSelf="flex-end" justifySelf="flex-end" width="100vw">
+        <Footer />
+      </Flex>
+
+    </Flex>
   </ChakraProvider>
 );
