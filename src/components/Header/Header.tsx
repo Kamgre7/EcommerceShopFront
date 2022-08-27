@@ -35,7 +35,7 @@ export const Header = () => {
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily="heading"
           >
-            Logo
+            <Link to="/">Logo</Link>
           </Text>
         </Flex>
 

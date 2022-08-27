@@ -10,12 +10,11 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue, FormErrorMessage, VStack, InputGroup, IconButton, InputRightElement,
+  useColorModeValue, FormErrorMessage, VStack, InputGroup, InputRightElement, IconButton,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const pwdVisibility = () => (showPassword ? setShowPassword(false) : setShowPassword(true));
 
@@ -27,9 +26,9 @@ export const LoginForm = () => {
     >
       <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
         <Stack align="center">
-          <Heading fontSize="4xl">Sign in to your account</Heading>
+          <Heading fontSize="4xl">Sign up to your account</Heading>
           <Text fontSize="lg">
-            to buy our best products!
+            and enjoy our store!
           </Text>
         </Stack>
         <Box
@@ -40,6 +39,8 @@ export const LoginForm = () => {
         >
           <Formik
             initialValues={{
+              firstName: '',
+              lastName: '',
               email: '',
               password: '',
             }}
@@ -50,6 +51,46 @@ export const LoginForm = () => {
             {({ handleSubmit, errors, touched }) => (
               <form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
+                  <FormControl isInvalid={!!errors.firstName && touched.firstName}>
+                    <FormLabel htmlFor="firstName">First name</FormLabel>
+                    <Field
+                      as={Input}
+                      id="firstName"
+                      name="firstName"
+                      type="text"
+                      validate={(value:string) => {
+                        let error;
+
+                        if (value.length <= 2) {
+                          error = 'First name must contain at least 3 characters';
+                        } else if (value.length >= 25) {
+                          error = 'First name cannot be longer than 25 characters';
+                        }
+                        return error;
+                      }}
+                    />
+                    <FormErrorMessage>{errors.firstName}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl isInvalid={!!errors.lastName && touched.lastName}>
+                    <FormLabel htmlFor="lastName">Last name</FormLabel>
+                    <Field
+                      as={Input}
+                      id="lastName"
+                      name="lastName"
+                      type="text"
+                      validate={(value:string) => {
+                        let error;
+
+                        if (value.length <= 2) {
+                          error = 'Last name must contain at least 3 characters';
+                        } else if (value.length >= 25) {
+                          error = 'Last name cannot be longer than 25 characters';
+                        }
+                        return error;
+                      }}
+                    />
+                    <FormErrorMessage>{errors.lastName}</FormErrorMessage>
+                  </FormControl>
                   <FormControl isInvalid={!!errors.email && touched.email}>
                     <FormLabel htmlFor="email">Email Address</FormLabel>
                     <Field
@@ -64,8 +105,9 @@ export const LoginForm = () => {
                           error = 'Email address must contain @';
                         } else if (value.length <= 5) {
                           error = 'Email must contain at least 6 characters';
+                        } else if (value.length > 255) {
+                          error = 'Email cannot be longer than 255 characters';
                         }
-
                         return error;
                       }}
                     />
@@ -101,33 +143,6 @@ export const LoginForm = () => {
                     align="start"
                     justify="start"
                   >
-                    <Stack
-                      direction={{ base: 'column', sm: 'row' }}
-                      align="start"
-                      justify="space-between"
-                      w="100%"
-                    >
-                      <Text
-                        fontSize="md"
-                        _hover={{
-                          color: 'blue.500',
-                        }}
-                      >
-                        <Link to="/register">
-                          Register
-                        </Link>
-                      </Text>
-                      <Text
-                        fontSize="md"
-                        _hover={{
-                          color: 'blue.500',
-                        }}
-                      >
-                        <Link to="/restart-password">
-                          Forgot password?
-                        </Link>
-                      </Text>
-                    </Stack>
                     <Button
                       type="submit"
                       bg="blue.400"
@@ -137,7 +152,7 @@ export const LoginForm = () => {
                         bg: 'blue.500',
                       }}
                     >
-                      Sign in
+                      Sign up
                     </Button>
                   </Stack>
                 </VStack>

@@ -10,6 +10,8 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Header } from './components/Header/Header';
 import { LoginForm } from './components/Forms/LoginForm';
 import { NotFoundView } from './View/NotFoundView';
+import { ForgotPasswordForm } from './components/Forms/ForgotPasswordForm';
+import { RegisterForm } from './components/Forms/RegisterForm';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -39,6 +41,9 @@ export const App = () => (
       <Route path="/register" element={<RegisterForm />} />
 */}
       <Route path="/login" element={<LoginForm />} />
+      <Route path="/restart-password" element={<ForgotPasswordForm />} />
+      <Route path="/register" element={<RegisterForm />} />
+
       {/*     <Route
         path="/"
         element={
