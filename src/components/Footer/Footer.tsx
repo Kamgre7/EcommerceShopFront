@@ -1,48 +1,15 @@
 import {
   Box,
-  chakra,
   Container,
   Stack,
   Text,
   useColorModeValue,
-  VisuallyHidden,
 } from '@chakra-ui/react';
 import {
   FaFacebook, FaInstagram, FaTwitter, FaYoutube,
 } from 'react-icons/fa';
-import React, { ReactNode } from 'react';
-
-const SocialButton = ({
-  children,
-  label,
-  href,
-  iconColor,
-}: {
-  children: ReactNode;
-  label: string;
-  href: string;
-  iconColor: string
-}) => (
-  <chakra.button
-    bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-    rounded="full"
-    w={8}
-    h={8}
-    cursor="pointer"
-    as="a"
-    href={href}
-    display="inline-flex"
-    alignItems="center"
-    justifyContent="center"
-    transition="background 0.3s ease"
-    _hover={{
-      color: `${iconColor}.500`,
-    }}
-  >
-    <VisuallyHidden>{label}</VisuallyHidden>
-    {children}
-  </chakra.button>
-);
+import React from 'react';
+import { SocialButton } from './SocialBtn';
 
 export const Footer = () => (
   <Box
