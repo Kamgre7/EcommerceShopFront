@@ -33,7 +33,7 @@ export const App = () => (
 
         <Routes>
           {/* <Route path="/product" element={<ProductView />} />
-      <Route path="/product/:id" element={<SingleProductDetails />} />
+             <Route path="/product/:id" element={<SingleProductDetails />} />
       <Route path="/product/form" element={<AddProductForm />} />
       <Route path="/category/" element={<CategoryView />} />
       <Route path="/category/form" element={<AddCategoryForm />} />
