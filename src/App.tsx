@@ -12,6 +12,7 @@ import { NotFoundView } from './View/NotFoundView';
 import { ForgotPasswordForm } from './components/Forms/ForgotPasswordForm';
 import { RegisterForm } from './components/Forms/RegisterForm';
 import { Footer } from './components/Footer/Footer';
+import { NavBar } from './components/NavBar/NavBar';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -25,8 +26,10 @@ export const App = () => (
           <ColorModeSwitcher justifySelf="flex-end" alignSelf="center" />
         </Flex>
       </Box>
-
-      <Flex minH="80vh" justify="center" align="flex-start" flexGrow={1}>
+      <Flex width="100%">
+        <NavBar />
+      </Flex>
+      <Flex justify="center" align="flex-start" flexGrow={1}>
 
         <Routes>
           {/* <Route path="/product" element={<ProductView />} />
