@@ -57,7 +57,9 @@ export const Carousel = () => {
     <Box
       position="relative"
       height="300px"
-      maxW="1280px"
+      maxW={{
+        base: 'md', md: '3xl', lg: '4xl',
+      }}
       overflow="hidden"
       borderRadius="20px"
       ml="15px"

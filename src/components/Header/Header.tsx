@@ -49,7 +49,7 @@ export const Header = () => {
               type="text"
               placeholder="What are you lookiang for?"
             />
-            <InputRightElement width="4.5rem" right="-15px">
+            <InputRightElement width="4.5rem" right={{ base: '-20px', md: '-15px' }}>
               <IconButton aria-label="Search database" icon={<SearchIcon />} onClick={handleClick} />
             </InputRightElement>
           </InputGroup>

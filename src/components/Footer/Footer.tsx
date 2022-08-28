@@ -26,7 +26,7 @@ export const Footer = () => (
       py={4}
       direction={{ base: 'column', md: 'row' }}
       spacing={4}
-      justify={{ base: 'center', md: 'space-between' }}
+      justify={{ base: 'center', md: 'space-around' }}
       align={{ base: 'center', md: 'center' }}
     >
       <Text>© 2022 Kamgre7 All rights reserved</Text>

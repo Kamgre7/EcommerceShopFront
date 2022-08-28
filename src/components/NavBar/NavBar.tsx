@@ -19,7 +19,7 @@ export const NavBar = () => {
 
   return (
     <Box bg={useColorModeValue('gray.50', 'gray.900')} px={4} width="full">
-      <Flex h={16} alignItems="center" justifyContent="center">
+      <Flex h={16} alignItems="center" justifyContent={{ base: 'flex-start', md: 'center' }}>
         <IconButton
           size="md"
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}

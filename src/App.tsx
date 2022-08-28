@@ -14,6 +14,7 @@ import { RegisterForm } from './components/Forms/RegisterForm';
 import { Footer } from './components/Footer/Footer';
 import { NavBar } from './components/NavBar/NavBar';
 import { HomeView } from './View/HomeView';
+import { ProductForm } from './components/Forms/ProductForm';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -40,7 +41,6 @@ export const App = () => (
         <Routes>
           {/* <Route path="/product" element={<ProductView />} />
              <Route path="/product/:id" element={<SingleProductDetails />} />
-      <Route path="/product/form" element={<AddProductForm />} />
       <Route path="/category/" element={<CategoryView />} />
       <Route path="/category/form" element={<AddCategoryForm />} />
       <Route path="/ranking" element={<RankingView />} />
@@ -52,6 +52,7 @@ export const App = () => (
           <Route path="/login" element={<LoginForm />} />
           <Route path="/restart-password" element={<ForgotPasswordForm />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/product/form" element={<ProductForm />} />
           <Route path="/*" element={<NotFoundView />} />
 
           {/*     <Route

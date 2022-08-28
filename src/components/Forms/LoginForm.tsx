@@ -89,7 +89,7 @@ export const LoginForm = () => {
                           return error;
                         }}
                       />
-                      <InputRightElement width="4.5rem" right="-15px">
+                      <InputRightElement width="4.5rem" right={{ base: '-20px', md: '-15px' }}>
                         <IconButton aria-label="Show password" icon={showPassword ? <ViewOffIcon /> : <ViewIcon />} onClick={pwdVisibility} />
                       </InputRightElement>
                     </InputGroup>
