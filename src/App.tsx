@@ -13,7 +13,7 @@ import { ForgotPasswordForm } from './components/Forms/ForgotPasswordForm';
 import { RegisterForm } from './components/Forms/RegisterForm';
 import { Footer } from './components/Footer/Footer';
 import { NavBar } from './components/NavBar/NavBar';
-import { Carousel } from './components/Carousel/Carousel';
+import { HomeView } from './View/HomeView';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -31,9 +31,9 @@ export const App = () => (
         <NavBar />
       </Flex>
 
-      <Flex justify="center" pt="20px">
+      {/*     <Flex justify="center" pt="20px">
         <Carousel />
-      </Flex>
+      </Flex> */}
 
       <Flex justify="center" align="flex-start" flexGrow={1}>
 
@@ -47,11 +47,12 @@ export const App = () => (
       <Route path="/cart" element={<CartView />} />
       <Route path="/removing-list" element={<RemovingListView />} /> */}
           {/*
-      <Route path="/register" element={<RegisterForm />} />
 */}
+          <Route path="/" element={<HomeView />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/restart-password" element={<ForgotPasswordForm />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/*" element={<NotFoundView />} />
 
           {/*     <Route
         path="/"
@@ -59,7 +60,6 @@ export const App = () => (
           <Navigate replace to="/product" />
           }
       /> */}
-          <Route path="/*" element={<NotFoundView />} />
         </Routes>
       </Flex>
 
