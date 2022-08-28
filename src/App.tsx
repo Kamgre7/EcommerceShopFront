@@ -13,6 +13,7 @@ import { ForgotPasswordForm } from './components/Forms/ForgotPasswordForm';
 import { RegisterForm } from './components/Forms/RegisterForm';
 import { Footer } from './components/Footer/Footer';
 import { NavBar } from './components/NavBar/NavBar';
+import { Carousel } from './components/Carousel/Carousel';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -29,6 +30,11 @@ export const App = () => (
       <Flex width="100%">
         <NavBar />
       </Flex>
+
+      <Flex justify="center" pt="20px">
+        <Carousel />
+      </Flex>
+
       <Flex justify="center" align="flex-start" flexGrow={1}>
 
         <Routes>
