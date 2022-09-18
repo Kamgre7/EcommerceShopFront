@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box,
   Flex,
@@ -11,11 +11,18 @@ import {
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { NavigationLink } from './NavigationLink';
-
-const Links = ['Laptop', 'Smartphone', 'TV and audio', 'Smarthome', 'Accessory'];
+import { ShopContext } from '../../context/shop.context';
 
 export const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const context = useContext(ShopContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { categories } = context;
 
   return (
     <Box bg={useColorModeValue('gray.50', 'gray.900')} px={4} width="full">
@@ -33,8 +40,8 @@ export const NavBar = () => {
             spacing={4}
             display={{ base: 'none', md: 'flex' }}
           >
-            {Links.map((link) => (
-              <NavigationLink key={link} productLink={link}>{link}</NavigationLink>
+            {categories.map((category) => (
+              <NavigationLink key={category.id} category={category}>{category.name}</NavigationLink>
             ))}
           </HStack>
         </HStack>
@@ -43,8 +50,8 @@ export const NavBar = () => {
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as="nav" spacing={4}>
-            {Links.map((link) => (
-              <NavigationLink key={link} productLink={link}>{link}</NavigationLink>
+            {categories.map((category) => (
+              <NavigationLink key={category.id} category={category}>{category.name}</NavigationLink>
             ))}
           </Stack>
         </Box>

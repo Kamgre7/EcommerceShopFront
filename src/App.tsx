@@ -20,6 +20,7 @@ import { ProductForm } from './components/Forms/ProductForm';
 import { ShopContext } from './context/shop.context';
 import { LoadingSpinner } from './components/LoadingSpinner/LoadingSpinner';
 import { SingleProductDetails } from './components/Product/SingleProductDetails';
+import { ProductCategoryView } from './view/ProductCategoryView';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
@@ -46,7 +47,15 @@ export const App = () => {
     })();
   }, []);
 
-  if (rankingProducts.length === 0) {
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('http://localhost:3001/category/');
+      const data:CategoryFilterResponse[] = await res.json();
+      loadCategories(data);
+    })();
+  }, []);
+
+  if (rankingProducts.length === 0 || categories.length === 0) {
     return <LoadingSpinner />;
   }
 
@@ -96,6 +105,8 @@ export const App = () => {
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/product/form" element={<ProductForm />} />
               <Route path="/product/:id" element={<SingleProductDetails />} />
+              <Route path="/product/category/:categoryName" element={<ProductCategoryView />} />
+
               <Route path="/*" element={<NotFoundView />} />
 
               {/*     <Route
