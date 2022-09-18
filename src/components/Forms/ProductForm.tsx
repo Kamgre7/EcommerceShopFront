@@ -68,7 +68,7 @@ export const ProductForm = () => {
                             if (value.length <= 2) {
                               error = 'Name must contain at least 3 characters';
                             } else if (value.length >= 25) {
-                              error = 'First name cannot be longer than 25 characters';
+                              error = 'Name cannot be longer than 25 characters';
                             }
                             return error;
                           }}
@@ -108,8 +108,8 @@ export const ProductForm = () => {
                             let error;
                             if (value === '') {
                               error = 'Quantity is required';
-                            } else if (value <= 0) {
-                              error = 'Quantity should be grater than 0';
+                            } else if (value <= 0 || value > 5000) {
+                              error = 'Quantity should be grater than 0 and lower than 5000';
                             }
                             return error;
                           }}
@@ -192,8 +192,8 @@ export const ProductForm = () => {
 
                             if (value.length <= 2) {
                               error = 'Description must contain at least 3 characters';
-                            } else if (value.length >= 25) {
-                              error = 'Description cannot be longer than 25 characters';
+                            } else if (value.length >= 1500) {
+                              error = 'Description cannot be longer than 1500 characters';
                             }
                             return error;
                           }}
