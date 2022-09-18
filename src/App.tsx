@@ -5,6 +5,8 @@ import {
   theme, Flex,
 } from '@chakra-ui/react';
 import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { CategoryFilterResponse, ProductFilterResponse } from 'types';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Header } from './components/Header/Header';
 import { LoginForm } from './components/Forms/LoginForm';
@@ -15,63 +17,102 @@ import { Footer } from './components/Footer/Footer';
 import { NavBar } from './components/NavBar/NavBar';
 import { HomeView } from './view/HomeView';
 import { ProductForm } from './components/Forms/ProductForm';
+import { ShopContext } from './context/shop.context';
+import { LoadingSpinner } from './components/LoadingSpinner/LoadingSpinner';
+import { SingleProductDetails } from './components/Product/SingleProductDetails';
 
 export const App = () => {
-  console.log('app.tsx');
+  const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
+  const [products, setProducts] = useState<ProductFilterResponse[]>([]);
+  const [rankingProducts, setRankingProducts] = useState<ProductFilterResponse[]>([]);
+
+  const loadCategories = (allCategories: CategoryFilterResponse[]) => {
+    setCategories(allCategories);
+  };
+
+  const loadProducts = (allProducts: ProductFilterResponse[]) => {
+    setProducts(allProducts);
+  };
+
+  const loadRankingProducts = (rankingProduct: ProductFilterResponse[]) => {
+    setRankingProducts(rankingProduct);
+  };
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('http://localhost:3001/product/ranking');
+      const data:ProductFilterResponse[] = await res.json();
+      loadRankingProducts(data);
+    })();
+  }, []);
+
+  if (rankingProducts.length === 0) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <ChakraProvider theme={theme}>
-      <Flex direction="column" minH="100vh">
-        <Box textAlign="center" fontSize="xl" minH="10vh" p={3}>
-          <Flex
-            width="100%"
-            justify="space-between"
-          >
-            <Header />
-            <ColorModeSwitcher justifySelf="flex-end" alignSelf="center" />
+      <ShopContext.Provider value={{
+        products,
+        categories,
+        rankingProducts,
+        loadRankingProducts,
+        loadProducts,
+        loadCategories,
+      }}
+      >
+        <Flex direction="column" minH="100vh">
+          <Box textAlign="center" fontSize="xl" minH="10vh" p={3}>
+            <Flex
+              width="100%"
+              justify="space-between"
+            >
+              <Header />
+              <ColorModeSwitcher justifySelf="flex-end" alignSelf="center" />
+            </Flex>
+          </Box>
+          <Flex width="100%">
+            <NavBar />
           </Flex>
-        </Box>
-        <Flex width="100%">
-          <NavBar />
-        </Flex>
 
-        {/*     <Flex justify="center" pt="20px">
+          {/*     <Flex justify="center" pt="20px">
         <Carousel />
       </Flex> */}
 
-        <Flex justify="center" align="flex-start" flexGrow={1}>
+          <Flex justify="center" align="flex-start" flexGrow={1}>
 
-          <Routes>
-            {/* <Route path="/product" element={<ProductView />} />
-             <Route path="/product/:id" element={<SingleProductDetails />} />
+            <Routes>
+              {/* <Route path="/product" element={<ProductView />} />
       <Route path="/category/" element={<CategoryView />} />
       <Route path="/category/form" element={<AddCategoryForm />} />
       <Route path="/ranking" element={<RankingView />} />
       <Route path="/cart" element={<CartView />} />
       <Route path="/removing-list" element={<RemovingListView />} /> */}
-            {/*
+              {/*
 */}
-            <Route path="/" element={<HomeView />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/restart-password" element={<ForgotPasswordForm />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/product/form" element={<ProductForm />} />
-            <Route path="/*" element={<NotFoundView />} />
+              <Route path="/" element={<HomeView />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/restart-password" element={<ForgotPasswordForm />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/product/form" element={<ProductForm />} />
+              <Route path="/product/:id" element={<SingleProductDetails />} />
+              <Route path="/*" element={<NotFoundView />} />
 
-            {/*     <Route
+              {/*     <Route
         path="/"
         element={
           <Navigate replace to="/product" />
           }
       /> */}
-          </Routes>
-        </Flex>
+            </Routes>
+          </Flex>
 
-        <Flex alignSelf="flex-end" justifySelf="flex-end" width="100vw">
-          <Footer />
-        </Flex>
+          <Flex alignSelf="flex-end" justifySelf="flex-end" width="100vw">
+            <Footer />
+          </Flex>
 
-      </Flex>
+        </Flex>
+      </ShopContext.Provider>
     </ChakraProvider>
   );
 };
