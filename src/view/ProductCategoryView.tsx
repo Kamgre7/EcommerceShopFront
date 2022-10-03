@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ProductFilterResponse } from 'types';
+import { CategoryFilterResponse, ProductFilterResponse } from 'types';
+import { Flex } from '@chakra-ui/react';
 import { LoadingSpinner } from '../components/LoadingSpinner/LoadingSpinner';
 import { ProductList } from '../components/Product/ProductList';
+import { ShopContext } from '../context/shop.context';
+import { Category } from '../components/Category/Category';
 
 export const ProductCategoryView = () => {
   const [products, setProducts] = useState<ProductFilterResponse[]>([]);
   const { categoryName } = useParams();
+
+  const context = useContext(ShopContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { categories } = context;
 
   useEffect(() => {
     (async () => {
@@ -20,5 +31,15 @@ export const ProductCategoryView = () => {
     return <LoadingSpinner />;
   }
 
-  return <ProductList products={products} />;
+  const singleCategory = categories.find((category) => category.id === products[0].category) as CategoryFilterResponse;
+
+  return (
+
+    <Flex
+      direction="column"
+    >
+      <Category category={singleCategory} />
+      <ProductList products={products} />
+    </Flex>
+  );
 };

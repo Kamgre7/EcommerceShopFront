@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box, Center, Heading, Stack, Text, useColorModeValue, Image,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { ProductFilterResponse } from 'types';
+import { CategoryFilterResponse, ProductFilterResponse } from 'types';
+import { ShopContext } from '../../context/shop.context';
 
 interface Props {
   product: ProductFilterResponse
 }
 
 export const SingleProduct = ({ product }: Props) => {
+  const context = useContext(ShopContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { categories } = context;
+
   const {
     name, price, id, category,
   } = product;
+
+  const singleCategory = categories.find((categoryItem) => categoryItem.id === category) as CategoryFilterResponse;
 
   const imgLink = `http://localhost:3001/product/photo/${id}`;
 
@@ -66,7 +77,7 @@ export const SingleProduct = ({ product }: Props) => {
           </Box>
           <Stack pt={10} align="center">
             <Text color="gray.500" fontSize="sm" textTransform="uppercase">
-              {category}
+              {singleCategory.name}
             </Text>
             <Heading fontSize="2xl" fontFamily="body" fontWeight={500}>
               {name}
