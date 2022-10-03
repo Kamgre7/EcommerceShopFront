@@ -6,7 +6,9 @@ import {
 } from '@chakra-ui/react';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { CategoryFilterResponse, ProductFilterResponse } from 'types';
+import {
+  CategoryFilterResponse, ProductFilterResponse, UserRole,
+} from 'types';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Header } from './components/Header/Header';
 import { LoginForm } from './components/Forms/LoginForm';
@@ -21,11 +23,18 @@ import { ShopContext } from './context/shop.context';
 import { LoadingSpinner } from './components/LoadingSpinner/LoadingSpinner';
 import { SingleProductDetails } from './components/Product/SingleProductDetails';
 import { ProductCategoryView } from './view/ProductCategoryView';
+import { useAuth } from './hooks/useAuth';
+import { RequiredAuth } from './components/RequiredAuth/RequiredAuth';
+import { UnauthorizedView } from './view/UnauthorizedView';
+import { Admin } from './components/Admin/Admin';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
   const [products, setProducts] = useState<ProductFilterResponse[]>([]);
   const [rankingProducts, setRankingProducts] = useState<ProductFilterResponse[]>([]);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { signOut, user, setUser } = useAuth();
 
   const loadCategories = (allCategories: CategoryFilterResponse[]) => {
     setCategories(allCategories);
@@ -55,6 +64,24 @@ export const App = () => {
     })();
   }, []);
 
+  /* useEffect(() => {
+    (async () => {
+      const res = await fetch('http://localhost:3001/user/check', {
+        credentials: 'include',
+      });
+      /!* if (res.ok) {
+        const data = (await res.json()) as LoginSuccessfulResponse;
+        setCurrentUser(data);
+      } *!/
+
+      const data = (await res.json()) as LoginResponse;
+      if (data.isSuccess) {
+        setCurrentUser(data);
+      }
+    })();
+    console.log('test');
+  }, []); */
+
   if (rankingProducts.length === 0 || categories.length === 0) {
     return <LoadingSpinner />;
   }
@@ -83,45 +110,36 @@ export const App = () => {
           <Flex width="100%">
             <NavBar />
           </Flex>
-
-          {/*     <Flex justify="center" pt="20px">
-        <Carousel />
-      </Flex> */}
-
           <Flex justify="center" align="flex-start" flexGrow={1}>
 
             <Routes>
-              {/* <Route path="/product" element={<ProductView />} />
+              {/*
       <Route path="/category/" element={<CategoryView />} />
-      <Route path="/category/form" element={<AddCategoryForm />} />
-      <Route path="/ranking" element={<RankingView />} />
       <Route path="/cart" element={<CartView />} />
       <Route path="/removing-list" element={<RemovingListView />} /> */}
-              {/*
-*/}
               <Route path="/" element={<HomeView />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/restart-password" element={<ForgotPasswordForm />} />
               <Route path="/register" element={<RegisterForm />} />
-              <Route path="/product/form" element={<ProductForm />} />
               <Route path="/product/:id" element={<SingleProductDetails />} />
               <Route path="/product/category/:categoryName" element={<ProductCategoryView />} />
+              <Route path="/unauthorized" element={<UnauthorizedView />} />
+
+              <Route element={<RequiredAuth allowedRole={UserRole.ADMIN} />}>
+                <Route path="/product/form" element={<ProductForm />} />
+                {/* <Route path="/category/form" element={<AddCategoryForm/>}/>  */}
+                <Route path="/admin" element={<Admin />} />
+              </Route>
 
               <Route path="/*" element={<NotFoundView />} />
-
-              {/*     <Route
-        path="/"
-        element={
-          <Navigate replace to="/product" />
-          }
-      /> */}
             </Routes>
           </Flex>
-
           <Flex alignSelf="flex-end" justifySelf="flex-end" width="100vw">
+            {
+                user && <div>{user.userRole}</div>
+            }
             <Footer />
           </Flex>
-
         </Flex>
       </ShopContext.Provider>
     </ChakraProvider>

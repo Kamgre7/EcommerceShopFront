@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import {
+  Link, useNavigate, useLocation,
+} from 'react-router-dom';
+import {
   Flex,
   Box,
   FormControl,
@@ -10,14 +13,35 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue, FormErrorMessage, VStack, InputGroup, IconButton, InputRightElement,
+  useColorModeValue, FormErrorMessage, VStack, InputGroup, IconButton, InputRightElement, useToast,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { LoginResponse } from 'types';
+import { useAuth } from '../../hooks/useAuth';
+
+type LocationProps = {
+  state: {
+    from: Location;
+  }
+};
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const pwdVisibility = () => (showPassword ? setShowPassword(false) : setShowPassword(true));
+
+  const { signIn, setErrorMessage } = useAuth();
+  const toast = useToast();
+
+  const navigate = useNavigate();
+  const location = useLocation() as unknown as LocationProps;
+
+  const from = location.state?.from?.pathname || '/';
+
+  /*  const userRef = useRef();
+
+  const [user, setUser] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [success, setSuccess] = useState(false); */
 
   return (
     <Flex
@@ -43,8 +67,35 @@ export const LoginForm = () => {
               email: '',
               password: '',
             }}
-            onSubmit={(values) => {
-              alert(JSON.stringify(values, null, 2));
+            onSubmit={async (values) => {
+              try {
+                const res = await fetch('http://localhost:3001/auth/login', {
+                  method: 'POST',
+                  credentials: 'include',
+                  headers: { 'Content-type': 'application/json' },
+                  body: JSON.stringify(values),
+                });
+
+                const data = await res.json() as LoginResponse;
+
+                if (!data.isSuccess) {
+                  toast({
+                    title: data.message,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                } else {
+                  signIn(data);
+                  navigate(from, { replace: true });
+                }
+              } catch (err) {
+                if (err instanceof Error) {
+                  setErrorMessage(err.message);
+                } else {
+                  setErrorMessage('No server response - login form error');
+                }
+              }
             }}
           >
             {({ handleSubmit, errors, touched }) => (
@@ -147,5 +198,6 @@ export const LoginForm = () => {
         </Box>
       </Stack>
     </Flex>
+
   );
 };

@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import { AuthProvider } from './context/AuthProvider';
 
 const container = document.getElementById('root');
 if (!container) throw new Error('Failed to find the root element');
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <ColorModeScript />
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );
