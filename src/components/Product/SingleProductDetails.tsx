@@ -4,9 +4,9 @@ import {
   Box,
   Button,
   Container,
-  Flex,
+  Flex, FormControl, FormErrorMessage, FormLabel,
   Heading,
-  Image,
+  Image, Input,
   SimpleGrid,
   Stack,
   StackDivider,
@@ -15,6 +15,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { MdLocalShipping } from 'react-icons/all';
+import { Field, Formik } from 'formik';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { ShopContext } from '../../context/shop.context';
 
@@ -63,17 +64,6 @@ export const SingleProductDetails = () => {
   const { quantity } = productInventory;
 
   const imgLink = `http://localhost:3001/product/photo/${id}`;
-
-  const addToCart = async (e:React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-
-    toast({
-      title: `${name} added to basket`,
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-  };
 
   return (
     <Container maxW="7xl">
@@ -148,23 +138,115 @@ export const SingleProductDetails = () => {
               </Text>
             </VStack>
           </Stack>
-          <Button
-            rounded="none"
-            w="full"
-            mt={8}
-            size="lg"
-            py="7"
-            bg={useColorModeValue('gray.900', 'gray.50')}
-            color={useColorModeValue('white', 'gray.900')}
-            textTransform="uppercase"
-            _hover={{
-              transform: 'translateY(2px)',
-              boxShadow: 'lg',
+
+          <Formik
+            initialValues={{
+              quantity: 1,
+              productId: id,
             }}
-            onClick={addToCart}
+            onSubmit={async (values) => {
+              try {
+                const res = await fetch('http://localhost:3001/basket', {
+                  method: 'POST',
+                  credentials: 'include',
+                  headers: { 'Content-type': 'application/json' },
+                  body: JSON.stringify({
+                    ...values,
+                    productId: id,
+                  }),
+                });
+
+                const data = await res.json();
+
+                if (!data.isSuccess) {
+                  toast({
+                    title: data.message,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                } else {
+                  toast({
+                    title: `${name} added to basket!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                }
+              } catch (err) {
+                if (err instanceof Error) {
+                  console.error(err.message);
+                }
+              }
+            }}
           >
-            Add to cart
-          </Button>
+            {({ handleSubmit, errors, touched }) => (
+              <form onSubmit={handleSubmit}>
+                <VStack spacing={4} align="flex-start">
+                  <Stack
+                    spacing={10}
+                    w="100%"
+                    align="start"
+                    justify="start"
+                  >
+                    <Flex
+                      width="100%"
+                      justify="center"
+                      align="center"
+                    >
+                      <Flex
+                        m="10px 20px"
+                      >
+                        <FormControl isInvalid={!!errors.quantity && touched.quantity} mb="15px">
+                          <FormLabel htmlFor="quantity">Quantity</FormLabel>
+                          <Field
+                            as={Input}
+                            id="quantity"
+                            name="quantity"
+                            type="number"
+                            min="1"
+                            max="5000"
+                            maxW="60px"
+                            validate={(value:string | number) => {
+                              let error;
+                              if (value === '') {
+                                error = 'Quantity is required';
+                              } else if (value <= 0 || value > 5000) {
+                                error = 'aQuantity should be grater than 0 and lower than 5000';
+                              }
+                              return error;
+                            }}
+                          />
+                          <FormErrorMessage>{errors.quantity}</FormErrorMessage>
+                        </FormControl>
+                      </Flex>
+                      <Flex
+                        grow={1}
+                      >
+                        <Button
+                          rounded="none"
+                          type="submit"
+                          w="full"
+                          mt={8}
+                          size="lg"
+                          py="7"
+                          bg={useColorModeValue('gray.900', 'gray.50')}
+                          color={useColorModeValue('white', 'gray.900')}
+                          textTransform="uppercase"
+                          _hover={{
+                            transform: 'translateY(2px)',
+                            boxShadow: 'lg',
+                          }}
+                        >
+                          Add to basket
+                        </Button>
+                      </Flex>
+                    </Flex>
+                  </Stack>
+                </VStack>
+              </form>
+            )}
+          </Formik>
           <Stack direction="row" alignItems="center" justifyContent="center">
             <MdLocalShipping />
             <Text>2-3 business days delivery</Text>
