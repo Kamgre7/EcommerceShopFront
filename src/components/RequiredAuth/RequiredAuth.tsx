@@ -4,7 +4,7 @@ import { UserRole } from 'types';
 import { useAuth } from '../../hooks/useAuth';
 
 interface Props {
-  allowedRole: UserRole;
+  allowedRole: UserRole[];
 }
 
 export const RequiredAuth = ({ allowedRole }: Props) => {
@@ -13,7 +13,7 @@ export const RequiredAuth = ({ allowedRole }: Props) => {
 
   return (
   // eslint-disable-next-line no-nested-ternary
-    user?.userRole === allowedRole
+    allowedRole.some((role) => user?.userRole === role)
       ? <Outlet />
       : user
         ? <Navigate to="/unauthorized" state={{ from: location }} replace />

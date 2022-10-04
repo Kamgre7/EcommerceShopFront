@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   ChakraProvider,
-  Box,
   theme, Flex,
 } from '@chakra-ui/react';
 import { Route, Routes } from 'react-router-dom';
@@ -9,14 +8,10 @@ import { useEffect, useState } from 'react';
 import {
   CategoryFilterResponse, ProductFilterResponse, UserRole,
 } from 'types';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Header } from './components/Header/Header';
 import { LoginForm } from './components/Forms/LoginForm';
 import { NotFoundView } from './view/NotFoundView';
 import { ForgotPasswordForm } from './components/Forms/ForgotPasswordForm';
 import { RegisterForm } from './components/Forms/RegisterForm';
-import { Footer } from './components/Footer/Footer';
-import { NavBar } from './components/NavBar/NavBar';
 import { HomeView } from './view/HomeView';
 import { ProductForm } from './components/Forms/ProductForm';
 import { ShopContext } from './context/shop.context';
@@ -27,6 +22,9 @@ import { useAuth } from './hooks/useAuth';
 import { RequiredAuth } from './components/RequiredAuth/RequiredAuth';
 import { UnauthorizedView } from './view/UnauthorizedView';
 import { Admin } from './components/Admin/Admin';
+import { NavigationView } from './view/NavigationView';
+import { FooterView } from './view/FooterView';
+import { BasketView } from './view/BasketView';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
@@ -98,25 +96,11 @@ export const App = () => {
       }}
       >
         <Flex direction="column" minH="100vh">
-          <Box textAlign="center" fontSize="xl" minH="10vh" p={3}>
-            <Flex
-              width="100%"
-              justify="space-between"
-            >
-              <Header />
-              <ColorModeSwitcher justifySelf="flex-end" alignSelf="center" />
-            </Flex>
-          </Box>
-          <Flex width="100%">
-            <NavBar />
-          </Flex>
-          <Flex justify="center" align="flex-start" flexGrow={1}>
+          <NavigationView />
 
+          <Flex justify="center" align="flex-start" flexGrow={1}>
             <Routes>
-              {/*
-      <Route path="/category/" element={<CategoryView />} />
-      <Route path="/cart" element={<CartView />} />
-      <Route path="/removing-list" element={<RemovingListView />} /> */}
+
               <Route path="/" element={<HomeView />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/restart-password" element={<ForgotPasswordForm />} />
@@ -125,21 +109,23 @@ export const App = () => {
               <Route path="/product/category/:categoryName" element={<ProductCategoryView />} />
               <Route path="/unauthorized" element={<UnauthorizedView />} />
 
-              <Route element={<RequiredAuth allowedRole={UserRole.ADMIN} />}>
+              <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN]} />}>
                 <Route path="/product/form" element={<ProductForm />} />
                 {/* <Route path="/category/form" element={<AddCategoryForm/>}/>  */}
                 <Route path="/admin" element={<Admin />} />
               </Route>
 
+              <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN, UserRole.USER]} />}>
+                <Route path="/basket" element={<BasketView />} />
+              </Route>
+
               <Route path="/*" element={<NotFoundView />} />
+
             </Routes>
           </Flex>
-          <Flex alignSelf="flex-end" justifySelf="flex-end" width="100vw">
-            {
-                user && <div>{user.userRole}</div>
-            }
-            <Footer />
-          </Flex>
+
+          <FooterView />
+
         </Flex>
       </ShopContext.Provider>
     </ChakraProvider>
