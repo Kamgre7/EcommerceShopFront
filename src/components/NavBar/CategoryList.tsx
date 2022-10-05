@@ -10,10 +10,10 @@ import {
 } from '@chakra-ui/react';
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { NavigationLink } from './NavigationLink';
+import { CategoryLink } from './CategoryLink';
 import { ShopContext } from '../../context/shop.context';
 
-export const NavBar = () => {
+export const CategoryList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const context = useContext(ShopContext);
@@ -41,7 +41,7 @@ export const NavBar = () => {
             display={{ base: 'none', md: 'flex' }}
           >
             {categories.map((category) => (
-              <NavigationLink key={category.id} category={category}>{category.name}</NavigationLink>
+              <CategoryLink key={category.id} category={category}>{category.name}</CategoryLink>
             ))}
           </HStack>
         </HStack>
@@ -51,7 +51,7 @@ export const NavBar = () => {
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as="nav" spacing={4}>
             {categories.map((category) => (
-              <NavigationLink key={category.id} category={category}>{category.name}</NavigationLink>
+              <CategoryLink key={category.id} category={category}>{category.name}</CategoryLink>
             ))}
           </Stack>
         </Box>

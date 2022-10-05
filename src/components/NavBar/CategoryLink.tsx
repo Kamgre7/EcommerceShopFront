@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import { CategoryFilterResponse } from 'types';
 
-export const NavigationLink = ({ children, category }: { children: ReactNode, category: CategoryFilterResponse }) => (
+export const CategoryLink = ({ children, category }: { children: ReactNode, category: CategoryFilterResponse }) => (
   <Link to={`product/category/${category.name.toLowerCase()}`}>
     <Box
       px={2}

@@ -1,8 +1,11 @@
 import React from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import {
+  Box, Flex,
+} from '@chakra-ui/react';
 import { Header } from '../components/Header/Header';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
-import { NavBar } from '../components/NavBar/NavBar';
+import { CategoryList } from '../components/NavBar/CategoryList';
+import { BasketBtn } from '../components/Btn/BasketBtn';
 
 export const NavigationView = () => (
   <>
@@ -12,11 +15,12 @@ export const NavigationView = () => (
         justify="space-between"
       >
         <Header />
+        <BasketBtn />
         <ColorModeSwitcher justifySelf="flex-end" alignSelf="center" />
       </Flex>
     </Box>
     <Flex width="100%">
-      <NavBar />
+      <CategoryList />
     </Flex>
   </>
 
