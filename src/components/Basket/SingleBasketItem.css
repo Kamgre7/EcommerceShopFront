@@ -2,26 +2,12 @@
     margin: auto auto 1rem;
     width: 90%;
     height: 30%;
-    display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.image-box {
-    width: 15%;
-}
-
-.subtitle {
-    line-height: 10px;
-    font-size: 18px;
-    font-family: ‘Open Sans’, 'sans-serif';
-    font-weight: 600;
-    color: #909090;
-}
-
 .counter{
     width: 15%;
-    display: flex;
     justify-content: space-between;
     align-items: center;
 }
@@ -33,33 +19,17 @@
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    font-family: ‘Open Sans’, 'sans-serif';
     font-weight: 900;
     cursor: pointer;
 }
 .count{
     font-size: 20px;
-    font-family: ‘Open Sans’, 'sans-serif';
-    font-weight: 900;
+    font-weight: 500;
     color: #202020;
 }
 
-.prices{
-    height: 100%;
-    text-align: right;
-}
 .amount{
-    padding-top: 20px;
     font-size: 26px;
-    font-family: ‘Open Sans’, 'sans-serif';
-    font-weight: 800;
+    font-weight: 500;
     width: 150px;
-}
-
-.remove{
-    padding-top: 5px;
-    font-size: 14px;
-    font-family: ‘Open Sans’, 'sans-serif';
-    font-weight: 600;
-    cursor: pointer;
 }

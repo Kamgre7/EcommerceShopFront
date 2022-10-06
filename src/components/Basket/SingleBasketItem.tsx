@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  Heading, Image, Box, Text, useColorModeValue,
+  Heading, Image, Box, useColorModeValue, Flex, Button, useToast,
 } from '@chakra-ui/react';
 import './SingleBasketItem.css';
-import { BasketFilterResponse } from 'types';
+import { BasketFilterResponse, BasketUpdateResponse, RemoveProductFromBasket } from 'types';
+import { DeleteIcon } from '@chakra-ui/icons';
 
 interface Props {
   item: BasketFilterResponse
@@ -11,25 +12,64 @@ interface Props {
 
 export const SingleBasketItem = (props: Props) => {
   const { item } = props;
-  /*
   const toast = useToast();
-*/
 
   const imgLink = `http://localhost:3001/product/photo/${item.product.id}`;
 
-  /* const removeItemFromBasket = (e:React.MouseEvent<HTMLElement>) => {
-    e.preventDefault(); */
+  const removeSingleItem = async (e:React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
 
-  /*  toast({
-    title: 'Item deleted from basket!',
-    status: 'info',
-    duration: 2000,
-    isClosable: true,
-  }); */
+    try {
+      const res = await fetch(`http://localhost:3001/basket/${item.id}`, {
+        credentials: 'include',
+        method: 'DELETE',
+      });
+
+      const data = (await res.json()) as RemoveProductFromBasket;
+
+      if (data.isSuccess) {
+        toast({
+          title: 'Item removed from basket',
+          status: 'info',
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const updateItemQuantity = async (quantity: number) => {
+    try {
+      const res = await fetch('http://localhost:3001/basket', {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({
+          quantity,
+          basketId: item.id,
+        }),
+      });
+
+      const data = (await res.json()) as BasketUpdateResponse;
+
+      if (!data.isSuccess) {
+        toast({
+          title: data.message,
+          status: 'warning',
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
-    <Box className="cart-items">
-      <Box className="image-box">
+    <Flex className="cart-items">
+      <Box width="15%">
         <Image
           src={imgLink}
           alt={item.product.name}
@@ -48,10 +88,14 @@ export const SingleBasketItem = (props: Props) => {
           {item.product.name}
         </Heading>
       </Box>
-      <Box
+      <Flex
         className="counter"
       >
-        <Box
+        <Button
+          onClick={async (e:React.MouseEvent<HTMLElement>) => {
+            e.preventDefault();
+            await updateItemQuantity(1);
+          }}
           className="btn"
           color={useColorModeValue('gray.600', 'gray.300')}
           bg={useColorModeValue('gray.100', 'gray.600')}
@@ -60,14 +104,18 @@ export const SingleBasketItem = (props: Props) => {
           }}
         >
           +
-        </Box>
+        </Button>
         <Box
           className="count"
           color={useColorModeValue('gray.600', 'gray.300')}
         >
           {item.quantity}
         </Box>
-        <Box
+        <Button
+          onClick={async (e:React.MouseEvent<HTMLElement>) => {
+            e.preventDefault();
+            await updateItemQuantity(-1);
+          }}
           className="btn"
           color={useColorModeValue('gray.600', 'gray.300')}
           bg={useColorModeValue('gray.100', 'gray.600')}
@@ -76,22 +124,22 @@ export const SingleBasketItem = (props: Props) => {
           }}
         >
           -
-        </Box>
-      </Box>
-      <Box className="prices">
+        </Button>
+      </Flex>
+      <Flex
+        justify="center"
+        align="center"
+      >
+
         <Box
           className="amount"
           color={useColorModeValue('gray.600', 'gray.300')}
         >
           {`${item.product.price}$`}
         </Box>
-        <Box
-          className="remove"
-          color={useColorModeValue('red.500', 'red.400')}
-        >
-          <Text>Remove</Text>
-        </Box>
-      </Box>
-    </Box>
+        <Button onClick={removeSingleItem}><DeleteIcon /></Button>
+      </Flex>
+
+    </Flex>
   );
 };

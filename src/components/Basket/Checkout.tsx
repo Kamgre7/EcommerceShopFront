@@ -1,7 +1,10 @@
 import React from 'react';
 import './Checkout.css';
-import { Box, Button, Flex } from '@chakra-ui/react';
+import {
+  Box, Flex, Text,
+} from '@chakra-ui/react';
 import { CheckoutTotalPriceResponse } from 'types';
+import { BasketCheckoutBtn } from '../Btn/BasketChechoutBtn';
 
 interface Props {
   checkout: CheckoutTotalPriceResponse
@@ -18,16 +21,16 @@ export const Checkout = ({ checkout }: Props) => {
     >
       <Box className="total">
         <Box>
-          <Box className="Subtotal">Sub-Total</Box>
-          <Box className="items">
+          <Text className="Subtotal">Sub-Total</Text>
+          <Text className="items">
             {`${totalItems} items`}
-          </Box>
-          <Box className="total-amount">
+          </Text>
+          <Text className="total-amount">
             {`$${totalPrice}`}
-          </Box>
+          </Text>
         </Box>
       </Box>
-      <Button className="button">Checkout</Button>
+      <BasketCheckoutBtn />
     </Flex>
   );
 };

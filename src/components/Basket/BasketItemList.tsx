@@ -15,7 +15,7 @@ export const BasketItemList = (props:Props) => {
   return (
     <Flex
       direction="column"
-      minH="30vh"
+      minH="15vh"
       mt="1rem"
     >
       {
