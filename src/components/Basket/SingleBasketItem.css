@@ -1,0 +1,35 @@
+.cart-items {
+    margin: auto auto 1rem;
+    width: 90%;
+    height: 30%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.counter{
+    width: 15%;
+    justify-content: space-between;
+    align-items: center;
+}
+.btn{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+}
+.count{
+    font-size: 20px;
+    font-weight: 500;
+    color: #202020;
+}
+
+.amount{
+    font-size: 26px;
+    font-weight: 500;
+    width: 150px;
+}
