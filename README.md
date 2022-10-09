@@ -1,59 +1,134 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+# E-commerce Shop Backend
 
-## Available Scripts
+E-commerdce Shop App is a shop application created to learn new techniques using React + TypeScrpt and Charak UI. Code was formetted using eslint. Project is a frontend api for e-commerce shop application.
 
-In the project directory, you can run:
+[Backend of application](https://github.com/Kamgre7/EcommerceShopBack)
 
-### `npm start`
+### 🚀 Technologies
+- React.js
+- React-router-dom
+- TypeScript
+- Formik
+- Chakra UI
+- code formatter: eslint with airbnb-typescript
 
-Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+### ✅ Requirements
+Before starting, you need to have Git installed.
 
-The page will reload if you make edits.<br /> You will also see any lint errors
-in the console.
+### 🏁 Running the app
 
-### `npm test`
+####Run locally - backend
 
-Launches the test runner in the interactive watch mode.<br /> See the section
-about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+```bash
+# Clone the project
+$ git clone https://github.com/Kamgre7/EcommerceShopBack.git
 
-### `npm run build`
+# Go to the project directory
+$ cd e-commerce-shop-back
 
-Builds the app for production to the `build` folder.<br /> It correctly bundles
-React in production mode and optimizes the build for the best performance.
+# Install dependencies
+$ npm install
 
-The build is minified and the filenames include the hashes.<br /> Your app is
-ready to be deployed!
+# Start the server
+$ npm run start
+```
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+####Run locally - frontend
 
-### `npm run eject`
+```bash
+# Clone the project
+$ git clone https://github.com/Kamgre7/EcommerceShopFront.git
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Go to the project directory
+$ cd ecommerce-shop-front
 
-If you aren’t satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
+# Install dependencies
+$ npm install
 
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you’re on your own.
+# Start the server
+$ npm run start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn’t feel obligated to use this
-feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
+### 📷 Screenshots
 
-## Learn More
+###Homepage view:
 
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![image](https://user-images.githubusercontent.com/105069884/194760613-c7b99ccd-b04b-4e25-9897-4eddc2cd8cd6.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Navigation and photo carousel with text about products
+
+![image](https://user-images.githubusercontent.com/105069884/194760753-712758c1-6dc6-4cd5-96ed-d50b4e706330.png)
+
+- Top sold products and footer on homepage
+
+![image](https://user-images.githubusercontent.com/105069884/194760876-d1a97581-312e-42e0-8f4d-435c6172c997.png)
+
+###Product view:
+- product separated by category - category description on top view
+
+![image](https://user-images.githubusercontent.com/105069884/194760988-189bae04-14a0-4348-93d6-0b406b46f8ef.png)
+
+- single product details - when user click some product, he will see details of prodct like: name, description, quantity, price, sku code, which category, image and button "add to basket"
+
+![image](https://user-images.githubusercontent.com/105069884/194761057-4ac17643-81a0-49e8-bf4a-cdcbdc4b4768.png)
+
+- after clicked button user have information about added product to basket, if quanity is grater than product stock, he will get information about that
+
+![image](https://user-images.githubusercontent.com/105069884/194761169-f05d1877-a489-4c3b-991e-246af77fbfa9.png)
+
+![image](https://user-images.githubusercontent.com/105069884/194761208-1e5053dd-4252-47ab-a2e9-06fd84e99152.png)
+
+- product form - created with chakra ui + formik implementation - all inputs are required when user want to add product, only admin can add product to shop
+
+![image](https://user-images.githubusercontent.com/105069884/194761306-21612147-bfae-4945-bd9b-8ac1568ba66c.png)
+
+- after adding a product user is redirected to homepage
+
+![image](https://user-images.githubusercontent.com/105069884/194762740-3ca08905-fd16-47d9-a2b8-2a9739061cc3.png)
+
+- if product exists
+
+![image](https://user-images.githubusercontent.com/105069884/194762889-09f9a2cd-2f14-43ed-9a8a-2b4f0fbfa1fb.png)
+
+### Basket and checkout view
+- list of products in user basket - user can add or subtract item quantity, remove one product or clear basket
+
+![image](https://user-images.githubusercontent.com/105069884/194763033-244a516e-ab01-4e02-9899-b4eb732b725c.png)
+
+- removed single product
+
+![image](https://user-images.githubusercontent.com/105069884/194763285-34c5dfed-ff32-4cb9-bb52-3f5fef70e1d7.png)
+
+- clear basket
+
+![image](https://user-images.githubusercontent.com/105069884/194763378-7d41c15e-3453-4bed-8750-a40f931d0038.png)
+
+
+- after clicking checkout user is navigated to /order and he must choose delivery address and give payment information
+
+![image](https://user-images.githubusercontent.com/105069884/194763176-90d640a6-841f-4b39-82e2-15db28a12079.png)
+
+### Forms view
+
+- login form
+
+![image](https://user-images.githubusercontent.com/105069884/194763449-5366beaf-d6a0-42f1-8e92-2388085b9810.png)
+
+- register form
+
+![image](https://user-images.githubusercontent.com/105069884/194763487-4b571bf6-53e7-4616-919e-ce032c62eea9.png)
+
+- forgot password form
+
+![image](https://user-images.githubusercontent.com/105069884/194765170-31a59a39-b4ea-496e-a5c9-741553e0c574.png)
+
+### 🧭 TODO
+- add admin panel view - updating/delete product
+- sidebar for searching items by price/popularity etc.
+- order - finalization of purchases 
+- refactor code of components 
+- user profile - editing information
+
+### Author
+
+[@Kamgre7](https://github.com/Kamgre7/)

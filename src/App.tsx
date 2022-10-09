@@ -18,21 +18,18 @@ import { ShopContext } from './context/shop.context';
 import { LoadingSpinner } from './components/LoadingSpinner/LoadingSpinner';
 import { SingleProductDetails } from './components/Product/SingleProductDetails';
 import { ProductCategoryView } from './view/ProductCategoryView';
-import { useAuth } from './hooks/useAuth';
 import { RequiredAuth } from './components/RequiredAuth/RequiredAuth';
 import { UnauthorizedView } from './view/UnauthorizedView';
 import { Admin } from './components/Admin/Admin';
 import { NavigationView } from './view/NavigationView';
 import { FooterView } from './view/FooterView';
 import { BasketView } from './view/BasketView';
+import { OrderView } from './view/OrderView';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
   const [products, setProducts] = useState<ProductFilterResponse[]>([]);
   const [rankingProducts, setRankingProducts] = useState<ProductFilterResponse[]>([]);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { signOut, user, setUser } = useAuth();
 
   const loadCategories = (allCategories: CategoryFilterResponse[]) => {
     setCategories(allCategories);
@@ -61,24 +58,6 @@ export const App = () => {
       loadCategories(data);
     })();
   }, []);
-
-  /* useEffect(() => {
-    (async () => {
-      const res = await fetch('http://localhost:3001/user/check', {
-        credentials: 'include',
-      });
-      /!* if (res.ok) {
-        const data = (await res.json()) as LoginSuccessfulResponse;
-        setCurrentUser(data);
-      } *!/
-
-      const data = (await res.json()) as LoginResponse;
-      if (data.isSuccess) {
-        setCurrentUser(data);
-      }
-    })();
-    console.log('test');
-  }, []); */
 
   if (rankingProducts.length === 0 || categories.length === 0) {
     return <LoadingSpinner />;
@@ -117,6 +96,7 @@ export const App = () => {
 
               <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN, UserRole.USER]} />}>
                 <Route path="/basket" element={<BasketView />} />
+                <Route path="/order" element={<OrderView />} />
               </Route>
 
               <Route path="/*" element={<NotFoundView />} />

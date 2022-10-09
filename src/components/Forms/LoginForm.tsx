@@ -76,7 +76,7 @@ export const LoginForm = () => {
                   body: JSON.stringify(values),
                 });
 
-                const data = await res.json() as LoginResponse;
+                const data:LoginResponse = await res.json();
 
                 if (!data.isSuccess) {
                   toast({

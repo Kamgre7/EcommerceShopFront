@@ -20,7 +20,7 @@ export const BasketView = () => {
           credentials: 'include',
         });
 
-        const data = (await res.json()) as BasketFilterResponse[];
+        const data:BasketFilterResponse[] = await res.json();
 
         setBasket(data);
       } catch (err) {
@@ -36,7 +36,7 @@ export const BasketView = () => {
           credentials: 'include',
         });
 
-        const data = (await res.json()) as CheckoutTotalPriceResponse;
+        const data:CheckoutTotalPriceResponse = await res.json();
 
         setCheckout(data);
       } catch (err) {

@@ -1,0 +1,54 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.card {
+    width: 60rem;
+    margin: auto;
+    position: center;
+    align-self: center;
+    top: 50rem;
+    border-radius: 1.5rem;
+    box-shadow: 4px 3px 20px #3535358c;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.product {
+    object-fit: cover;
+    width: 20em;
+    height: 20em;
+    border-radius: 100%;
+}
+
+.expcvv {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.6rem;
+}
+
+.expcvv_text {
+    padding-right: 1rem;
+}
+
+.expcvv_text2 {
+    padding: 0 1rem;
+}
+
+.button {
+    padding: 10px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    width: 100%;
+    letter-spacing: .11rem;
+    outline: none;
+}
+

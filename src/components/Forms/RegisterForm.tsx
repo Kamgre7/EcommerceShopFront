@@ -13,11 +13,25 @@ import {
   useColorModeValue, FormErrorMessage, VStack, InputGroup, InputRightElement, IconButton, useToast,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { RegisterUserResponse } from 'types';
+
+type LocationProps = {
+  state: {
+    from: Location;
+  }
+};
 
 export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const pwdVisibility = () => (showPassword ? setShowPassword(false) : setShowPassword(true));
   const toast = useToast();
+
+  const navigate = useNavigate();
+  const location = useLocation() as unknown as LocationProps;
+
+  const from = location.state?.from?.pathname || '/';
+
   return (
     <Flex
       align="center"
@@ -57,9 +71,9 @@ export const RegisterForm = () => {
                 body: JSON.stringify(values),
               });
 
-              const data = await res.json();
-              console.log(data);
-              if (data.isSuccess === false) {
+              const data: RegisterUserResponse = await res.json();
+
+              if ('isSuccess' in data) {
                 toast({
                   title: 'Account with this email is already registered!',
                   status: 'error',
@@ -73,6 +87,7 @@ export const RegisterForm = () => {
                   duration: 3000,
                   isClosable: true,
                 });
+                navigate(from, { replace: true });
               }
             }}
           >

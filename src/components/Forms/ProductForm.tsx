@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik, Field } from 'formik';
 import {
   Flex,
@@ -12,11 +12,24 @@ import {
   useColorModeValue,
   FormErrorMessage,
   VStack,
-  Textarea, Select,
+  Textarea, Select, useToast,
 } from '@chakra-ui/react';
+import { CreateProductResponse } from 'types';
+import { useNavigate } from 'react-router-dom';
+import { ShopContext } from '../../context/shop.context';
 
 export const ProductForm = () => {
-  console.log('test');
+  const toast = useToast();
+
+  const navigate = useNavigate();
+  const context = useContext(ShopContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { categories } = context;
+
   return (
     <Flex
       align="center"
@@ -41,11 +54,49 @@ export const ProductForm = () => {
               price: 1,
               sku: '',
               categoryId: '',
-              img: '',
+              photo: '',
             }}
-            onSubmit={(values) => {
-              alert(JSON.stringify(values, null, 2));
-              console.log(values.img);
+            onSubmit={async (values) => {
+              const formData = new FormData();
+
+              for (const [key, value] of Object.entries(values)) {
+                if (key !== 'photo') {
+                  formData.append(key, String(value));
+                } else {
+                  formData.append('photo', values.photo);
+                }
+              }
+
+              try {
+                const res = await fetch('http://localhost:3001/product/', {
+                  method: 'POST',
+                  credentials: 'include',
+                  body: formData,
+                });
+
+                const data:CreateProductResponse = await res.json();
+                console.log(data);
+                if ('isSuccess' in data) {
+                  toast({
+                    title: data.message,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                } else {
+                  toast({
+                    title: `Product ${data.name} was successfully created`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                  navigate('/', { replace: true });
+                }
+              } catch (err) {
+                if (err instanceof Error) {
+                  console.error(err.message);
+                }
+              }
             }}
           >
             {({
@@ -154,24 +205,22 @@ export const ProductForm = () => {
                             return error;
                           }}
                         >
-                          <option>Laptop</option>
-                          <option>Smartphone</option>
-                          <option>TV and audio</option>
-                          <option>Smarthome</option>
-                          <option>Accessory</option>
+                          {
+                            categories.map((singleCategory) => <option key={singleCategory.id} value={singleCategory.id}>{singleCategory.name}</option>)
+                          }
 
                         </Field>
                         <FormErrorMessage>{errors.categoryId}</FormErrorMessage>
                       </FormControl>
 
                       <FormControl mb="15px">
-                        <FormLabel htmlFor="img">Img</FormLabel>
+                        <FormLabel htmlFor="photo">Photo</FormLabel>
                         <input
-                          id="img"
-                          name="img"
+                          id="photo"
+                          name="photo"
                           type="file"
                           accept="image/*"
-                          onChange={(e: React.FormEvent<HTMLInputElement>) => setFieldValue('img', (e.target as HTMLInputElement).files![0])}
+                          onChange={(e: React.FormEvent<HTMLInputElement>) => setFieldValue('photo', (e.target as HTMLInputElement).files![0])}
                         />
                       </FormControl>
 
