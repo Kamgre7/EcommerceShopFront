@@ -1,6 +1,6 @@
-# E-commerce Shop Backend
+# E-commerce Shop Frontend
 
-E-commerdce Shop App is a shop application created to learn new techniques using React + TypeScrpt and Charak UI. Code was formetted using eslint. Project is a frontend api for e-commerce shop application.
+E-commerdce Shop App is a shop application created to learn new techniques using React + TypeScript and Chakra UI. Code was formatted using eslint. Project is a frontend api for e-commerce shop application.
 
 [Backend of application](https://github.com/Kamgre7/EcommerceShopBack)
 
@@ -68,11 +68,11 @@ $ npm run start
 
 ![image](https://user-images.githubusercontent.com/105069884/194760988-189bae04-14a0-4348-93d6-0b406b46f8ef.png)
 
-- single product details - when user click some product, he will see details of prodct like: name, description, quantity, price, sku code, which category, image and button "add to basket"
+- single product details - when user click some product, he will see details of product like: name, description, quantity, price, sku code, which category, image and button "add to basket"
 
 ![image](https://user-images.githubusercontent.com/105069884/194761057-4ac17643-81a0-49e8-bf4a-cdcbdc4b4768.png)
 
-- after clicked button user have information about added product to basket, if quanity is grater than product stock, he will get information about that
+- after clicked button user have information about added product to basket, if quantity is grater than product stock, he will get information about that
 
 ![image](https://user-images.githubusercontent.com/105069884/194761169-f05d1877-a489-4c3b-991e-246af77fbfa9.png)
 
@@ -104,7 +104,7 @@ $ npm run start
 ![image](https://user-images.githubusercontent.com/105069884/194763378-7d41c15e-3453-4bed-8750-a40f931d0038.png)
 
 
-- after clicking checkout user is navigated to /order and he must choose delivery address and give payment information
+- after clicking checkout user is navigated to /order, and he must choose delivery address and give payment information
 
 ![image](https://user-images.githubusercontent.com/105069884/194763176-90d640a6-841f-4b39-82e2-15db28a12079.png)
 
