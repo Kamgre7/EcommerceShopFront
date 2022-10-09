@@ -17,7 +17,7 @@ Before starting, you need to have Git installed.
 
 ### 🏁 Running the app
 
-####Run locally - backend
+#### Run locally - backend
 
 ```bash
 # Clone the project
@@ -33,7 +33,7 @@ $ npm install
 $ npm run start
 ```
 
-####Run locally - frontend
+#### Run locally - frontend
 
 ```bash
 # Clone the project
@@ -51,7 +51,7 @@ $ npm run start
 
 ### 📷 Screenshots
 
-###Homepage view:
+### Homepage view:
 
 ![image](https://user-images.githubusercontent.com/105069884/194760613-c7b99ccd-b04b-4e25-9897-4eddc2cd8cd6.png)
 
@@ -63,7 +63,7 @@ $ npm run start
 
 ![image](https://user-images.githubusercontent.com/105069884/194760876-d1a97581-312e-42e0-8f4d-435c6172c997.png)
 
-###Product view:
+### Product view:
 - product separated by category - category description on top view
 
 ![image](https://user-images.githubusercontent.com/105069884/194760988-189bae04-14a0-4348-93d6-0b406b46f8ef.png)
