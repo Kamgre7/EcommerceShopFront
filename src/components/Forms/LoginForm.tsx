@@ -37,12 +37,6 @@ export const LoginForm = () => {
 
   const from = location.state?.from?.pathname || '/';
 
-  /*  const userRef = useRef();
-
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
-  const [success, setSuccess] = useState(false); */
-
   return (
     <Flex
       align="center"
@@ -77,7 +71,6 @@ export const LoginForm = () => {
                 });
 
                 const data:LoginResponse = await res.json();
-
                 if (!data.isSuccess) {
                   toast({
                     title: data.message,

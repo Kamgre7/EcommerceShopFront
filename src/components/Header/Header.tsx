@@ -6,9 +6,12 @@ import {
 import { Searchbar } from './Searchbar';
 import { SignInBtn } from '../Btn/SignInBtn';
 import { LogoBanner } from './LogoBanner';
+import { useAuth } from '../../hooks/useAuth';
+import { UserBtn } from '../Btn/UserBtn';
 
 export const Header = () => {
-  const handleClick = () => console.log('searchbar on click');
+  const { user } = useAuth();
+  const handleClick = () => console.log('searchbar on clicka');
 
   return (
     <Flex basis="100%">
@@ -39,7 +42,9 @@ export const Header = () => {
         </Flex>
 
         <Flex>
-          <SignInBtn />
+          {
+            user ? <UserBtn /> : <SignInBtn />
+          }
         </Flex>
 
       </Flex>

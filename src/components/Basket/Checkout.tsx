@@ -26,7 +26,7 @@ export const Checkout = ({ checkout }: Props) => {
             {`${totalItems} items`}
           </Text>
           <Text className="total-amount">
-            {`$${totalPrice}`}
+            {`$${totalPrice.toFixed(2)}`}
           </Text>
         </Box>
       </Box>

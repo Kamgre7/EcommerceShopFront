@@ -13,11 +13,11 @@
     "max-len": "off",
     "no-restricted-syntax": "off",
     "no-console": "off",
+    "no-nested-ternary": "off",
     "indent": ["error", 2, {
       "SwitchCase": 1,
       "VariableDeclarator": 1,
       "outerIIFEBody": 1,
-      // MemberExpression: null,
       "FunctionDeclaration": {
         "parameters": 1,
         "body": 1
@@ -33,7 +33,6 @@
       "ObjectExpression": 1,
       "ImportDeclaration": 1,
       "flatTernaryExpressions": false,
-      // list derived from https://github.com/benjamn/ast-types/blob/HEAD/def/jsx.js
       "ignoredNodes": ["JSXElement", "JSXElement > *", "JSXAttribute", "JSXIdentifier", "JSXNamespacedName", "JSXMemberExpression", "JSXSpreadAttribute", "JSXExpressionContainer", "JSXOpeningElement", "JSXClosingElement", "JSXText", "JSXEmptyExpression", "JSXSpreadChild"],
       "ignoreComments": false
     }],
