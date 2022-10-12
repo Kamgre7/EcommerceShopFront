@@ -10,7 +10,7 @@ import {
   MenuDivider, useToast,
 } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogoutResponse } from 'types';
+import { LogoutResponse, UserRole } from 'types';
 import { useAuth } from '../../hooks/useAuth';
 
 const MENU_LINKS = [
@@ -25,7 +25,7 @@ const MENU_LINKS = [
 ];
 
 export const UserBtn = () => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -77,6 +77,9 @@ export const UserBtn = () => {
                 <MenuItem key={link.url}>{link.name}</MenuItem>
               </Link>
             ))
+          }
+          {
+            user?.role === UserRole.ADMIN && <Link to="/admin"><MenuItem>Shop configuration</MenuItem></Link>
           }
           <MenuDivider />
           <MenuItem onClick={logoutUser}> Logout </MenuItem>

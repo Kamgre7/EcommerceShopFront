@@ -20,11 +20,12 @@ import { SingleProductDetails } from './components/Product/SingleProductDetails'
 import { ProductCategoryView } from './view/ProductCategoryView';
 import { RequiredAuth } from './components/RequiredAuth/RequiredAuth';
 import { UnauthorizedView } from './view/UnauthorizedView';
-import { Admin } from './components/Admin/Admin';
 import { NavigationView } from './view/NavigationView';
 import { FooterView } from './view/FooterView';
 import { BasketView } from './view/BasketView';
 import { OrderView } from './view/OrderView';
+import { AdminView } from './view/AdminView';
+import { OrderHistory } from './components/Order/OrderHistory';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
@@ -91,12 +92,13 @@ export const App = () => {
               <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN]} />}>
                 <Route path="/product/form" element={<ProductForm />} />
                 {/* <Route path="/category/form" element={<AddCategoryForm/>}/>  */}
-                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin" element={<AdminView />} />
               </Route>
 
               <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN, UserRole.USER]} />}>
                 <Route path="/basket" element={<BasketView />} />
                 <Route path="/order" element={<OrderView />} />
+                <Route path="/order/history" element={<OrderHistory />} />
               </Route>
 
               <Route path="/*" element={<NotFoundView />} />
