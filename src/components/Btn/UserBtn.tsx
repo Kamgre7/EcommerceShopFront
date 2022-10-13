@@ -19,7 +19,7 @@ const MENU_LINKS = [
     url: '/order/history',
   },
   {
-    name: 'Settings',
+    name: 'Edit profile',
     url: 'user/edit',
   },
 ];
