@@ -26,6 +26,7 @@ import { BasketView } from './view/BasketView';
 import { OrderView } from './view/OrderView';
 import { AdminView } from './view/AdminView';
 import { OrderHistory } from './components/Order/OrderHistory';
+import { SearchProductView } from './view/SearchProductView';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
@@ -86,6 +87,7 @@ export const App = () => {
               <Route path="/restart-password" element={<ForgotPasswordForm />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/product/:id" element={<SingleProductDetails />} />
+              <Route path="/product/find/:searchTerm" element={<SearchProductView />} />
               <Route path="/product/category/:categoryName" element={<ProductCategoryView />} />
               <Route path="/unauthorized" element={<UnauthorizedView />} />
 

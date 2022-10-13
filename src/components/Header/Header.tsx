@@ -11,7 +11,6 @@ import { UserBtn } from '../Btn/UserBtn';
 
 export const Header = () => {
   const { user } = useAuth();
-  const handleClick = () => console.log('searchbar on clicka');
 
   return (
     <Flex basis="100%">
@@ -38,7 +37,7 @@ export const Header = () => {
           flex={{ base: 1 }}
           justify={{ base: 'center', md: 'center' }}
         >
-          <Searchbar handleClick={handleClick} />
+          <Searchbar />
         </Flex>
 
         <Flex>
