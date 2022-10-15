@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Field } from 'formik';
 import {
   Flex,
@@ -11,13 +11,16 @@ import {
   Text,
   useColorModeValue, FormErrorMessage, VStack, useToast,
 } from '@chakra-ui/react';
-import { useAuth } from '../../hooks/useAuth';
+import { UserInfoSuccessfulResponse } from 'types';
 
-export const UserEditForm = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [userInfo, setUserInfo] = useState(null);
-  const { user } = useAuth();
+interface Props {
+  userInfo: UserInfoSuccessfulResponse
+}
+
+export const UserEditForm = ({ userInfo }:Props) => {
   const toast = useToast();
+  const { firstName, lastName, email } = userInfo;
+
   return (
     <Flex
       align="center"
@@ -38,13 +41,13 @@ export const UserEditForm = () => {
         >
           <Formik
             initialValues={{
-              firstName: user?.firstName,
-              lastName: user?.lastName,
-              email: '',
+              firstName,
+              lastName,
+              email,
             }}
             onSubmit={async (values) => {
-              const res = await fetch('http://localhost:3001/user/register', {
-                method: 'POST',
+              const res = await fetch('http://localhost:3001/user/edit', {
+                method: 'PATCH',
                 credentials: 'include',
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(values),
@@ -74,6 +77,7 @@ export const UserEditForm = () => {
                           id="firstName"
                           name="firstName"
                           type="text"
+                          mb={4}
                           validate={(value:string) => {
                             let error;
 
@@ -94,6 +98,7 @@ export const UserEditForm = () => {
                           id="lastName"
                           name="lastName"
                           type="text"
+                          mb={4}
                           validate={(value:string) => {
                             let error;
 
@@ -114,6 +119,7 @@ export const UserEditForm = () => {
                           id="email"
                           name="email"
                           type="email"
+                          mb={4}
                           validate={(value:string) => {
                             let error;
 

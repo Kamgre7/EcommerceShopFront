@@ -40,7 +40,7 @@ export const SingleOrder = ({ order }:Props) => {
       <Text>
         {` Total price: $ ${total.toFixed(2)}`}
       </Text>
-      <div>{address.address}</div>
+      <div>{`Address: ${address.address}, ${address.city}, ${address.postalCode}, ${address.country}`}</div>
     </Flex>
 
   );

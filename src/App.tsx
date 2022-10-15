@@ -28,6 +28,7 @@ import { AdminView } from './view/AdminView';
 import { OrderHistory } from './components/Order/OrderHistory';
 import { SearchProductView } from './view/SearchProductView';
 import { UserProfile } from './components/Users/UserProfile';
+import { UserAddressForm } from './components/Forms/UserAddressForm';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
@@ -101,6 +102,7 @@ export const App = () => {
               <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN, UserRole.USER]} />}>
                 <Route path="/basket" element={<BasketView />} />
                 <Route path="/user/edit" element={<UserProfile />} />
+                <Route path="/user/address/form" element={<UserAddressForm />} />
                 <Route path="/order" element={<OrderView />} />
                 <Route path="/order/history" element={<OrderHistory />} />
               </Route>
