@@ -106,7 +106,31 @@ $ npm run start
 
 - after clicking checkout user is navigated to /order, and he must choose delivery address and give payment information
 
-![image](https://user-images.githubusercontent.com/105069884/194763176-90d640a6-841f-4b39-82e2-15db28a12079.png)
+![image](https://user-images.githubusercontent.com/105069884/196056337-ba5ae0a0-47c2-42f9-8f29-d8e50c412c51.png)
+
+- after validation user is navigated to /order/history view
+
+![image](https://user-images.githubusercontent.com/105069884/196056498-05d18960-0cdc-4f67-a8f9-8688d7123732.png)
+
+### User profile view
+
+- when user is logged 
+
+![image](https://user-images.githubusercontent.com/105069884/196056569-331dd47f-d6cc-44c4-80ef-b011a6bd94ff.png)
+
+
+- edit profile view
+
+![image](https://user-images.githubusercontent.com/105069884/196056521-a5c5214b-74aa-4ec6-8234-e3b61af5ce44.png)
+
+- show address view 
+
+![image](https://user-images.githubusercontent.com/105069884/196056637-a9e2fb58-a86b-482f-818c-5013bdc20cbc.png)
+
+- delete account view - operation must be confirmed
+
+![image](https://user-images.githubusercontent.com/105069884/196056692-e407f64b-1341-44eb-b25f-51e891f13e42.png)
+
 
 ### Forms view
 
@@ -122,12 +146,17 @@ $ npm run start
 
 ![image](https://user-images.githubusercontent.com/105069884/194765170-31a59a39-b4ea-496e-a5c9-741553e0c574.png)
 
+- add new address form
+
+![image](https://user-images.githubusercontent.com/105069884/196056598-c4747af3-28b0-4453-98c4-fdc6f87f4ccb.png)
+
+
 ### 🧭 TODO
 - add admin panel view - updating/delete product
 - sidebar for searching items by price/popularity etc.
 - order - finalization of purchases 
-- refactor code of components 
-- user profile - editing information
+- refactor code of components
+ - user profile - editing information
 
 ### Author
 
