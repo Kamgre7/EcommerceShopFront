@@ -197,7 +197,7 @@ export const ProductForm = () => {
                           name="categoryId"
                           type="select"
                           placeholder="Select category"
-                          validate={(value:string | number) => {
+                          validate={(value:string) => {
                             let error;
                             if (value === '') {
                               error = 'Category is required';

@@ -11,21 +11,13 @@ import {
   Heading,
   useColorModeValue, FormErrorMessage, VStack, useToast,
 } from '@chakra-ui/react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
-type LocationProps = {
-  state: {
-    from: Location;
-  }
-};
+import { useNavigate } from 'react-router-dom';
+import { CreateUserAddressResponse } from 'types';
 
 export const UserAddressForm = () => {
   const toast = useToast();
 
   const navigate = useNavigate();
-  const location = useLocation() as unknown as LocationProps;
-
-  const from = location.state?.from?.pathname || '/';
 
   return (
     <Flex
@@ -59,23 +51,23 @@ export const UserAddressForm = () => {
                 body: JSON.stringify(values),
               });
 
-              const data = await res.json();
+              const data:CreateUserAddressResponse = await res.json();
 
-              if ('isSuccess' in data) {
+              if (data.isSuccess) {
                 toast({
-                  title: 'Account with this email is already registered!',
-                  status: 'error',
-                  duration: 3000,
-                  isClosable: true,
-                });
-              } else {
-                toast({
-                  title: `Congratulations! Account ${data.email} was created successfully!`,
+                  title: 'New address added!',
                   status: 'success',
                   duration: 3000,
                   isClosable: true,
                 });
-                navigate(from, { replace: true });
+                navigate('user/address', { replace: true });
+              } else {
+                toast({
+                  title: 'Something went wrong. Try again later.',
+                  status: 'success',
+                  duration: 3000,
+                  isClosable: true,
+                });
               }
             }}
           >

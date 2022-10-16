@@ -21,7 +21,6 @@ export const DeleteAccountBtn = () => {
 
   const confirmedDelete = async ():Promise<void> => {
     const userId = user?.id;
-    signOut();
     const res = await fetch(`http://localhost:3001/user/${userId}`, {
       method: 'DELETE',
       credentials: 'include',
@@ -30,6 +29,7 @@ export const DeleteAccountBtn = () => {
     const data:UserDeleteAccount = await res.json();
 
     if (data.isSuccess) {
+      signOut();
       toast({
         title: 'Account deleted successfully',
         status: 'info',
