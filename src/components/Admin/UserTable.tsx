@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users } from '../Users/Users';
+import { UsersList } from '../Table/UsersList';
 
 export const UserTable = () => {
   console.log('admin page');
@@ -8,7 +8,7 @@ export const UserTable = () => {
       <h1>Admin page</h1>
       <p>Must be a admin role</p>
       <p>user component</p>
-      <Users />
+      <UsersList />
     </section>
   );
 };

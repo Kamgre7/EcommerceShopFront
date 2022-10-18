@@ -19,13 +19,14 @@ import { Field, Formik } from 'formik';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { ShopContext } from '../../context/shop.context';
 
-interface SingleProductDetailsInterface {
+export interface SingleProductDetailsInterface {
   id: string;
   name: string;
   description: string;
   price:number;
   sku: string;
   productInventory: { quantity:number };
+  category: { id: string }
 }
 
 export const SingleProductDetails = () => {

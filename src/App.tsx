@@ -30,6 +30,7 @@ import { SearchProductView } from './view/SearchProductView';
 import { UserProfile } from './components/Users/UserProfile';
 import { UserAddressForm } from './components/Forms/UserAddressForm';
 import { UserAddressList } from './components/Users/UserAddressList';
+import { ProductEditForm } from './components/Forms/ProductEditForm';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
@@ -98,6 +99,7 @@ export const App = () => {
                 <Route path="/product/form" element={<ProductForm />} />
                 {/* <Route path="/category/form" element={<AddCategoryForm/>}/>  */}
                 <Route path="/admin" element={<AdminView />} />
+                <Route path="/product/edit/:id" element={<ProductEditForm />} />
               </Route>
 
               <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN, UserRole.USER]} />}>

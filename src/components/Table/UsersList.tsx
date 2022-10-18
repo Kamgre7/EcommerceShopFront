@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { UserInfoSuccessfulResponse } from 'types';
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 
-export const Users = () => {
+export const UsersList = () => {
   const [users, setUsers] = useState<UserInfoSuccessfulResponse[] | null>(null);
 
   useEffect(() => {
@@ -10,13 +11,17 @@ export const Users = () => {
         const res = await fetch('http://localhost:3001/user', {
           credentials: 'include',
         });
-        const data = (await res.json()) as UserInfoSuccessfulResponse[];
+        const data: UserInfoSuccessfulResponse[] = await res.json();
         setUsers(data);
       } catch (err) {
         console.error(err);
       }
     })();
   }, []);
+
+  if (users === null) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div>
