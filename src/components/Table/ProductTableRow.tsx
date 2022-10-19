@@ -1,16 +1,17 @@
 import React from 'react';
 import {
-  Button, Td, Tr,
+  Button, Td, Tr, useToast,
 } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { ProductFilterResponse } from 'types';
+import { ProductFilterResponse, RemoveProductResponse } from 'types';
 
 interface Props {
   product: ProductFilterResponse;
 }
 
 export const ProductTableRow = ({ product }: Props) => {
+  const toast = useToast();
   const navigate = useNavigate();
 
   const {
@@ -22,10 +23,26 @@ export const ProductTableRow = ({ product }: Props) => {
 
     try {
       const res = await fetch(`http://localhost:3001/product/${id}`, {
+        credentials: 'include',
         method: 'DELETE',
       });
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const data = await res.json();
+      const data:RemoveProductResponse = await res.json();
+
+      if (data.isSuccess) {
+        toast({
+          title: 'Product deleted successfully',
+          status: 'info',
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: 'Something went wrong. Please try again later.',
+          status: 'warning',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
     } catch (err) {
       console.error(err);
     }

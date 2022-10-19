@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react';
-import { UsersList } from '../components/Table/UsersList';
+import { UserTableList } from '../components/Table/UserTableList';
 import { ProductTableList } from '../components/Table/ProductTableList';
 
 export const AdminView = () => {
@@ -10,7 +10,7 @@ export const AdminView = () => {
       direction="column"
     >
       <ProductTableList />
-      <UsersList />
+      <UserTableList />
     </Flex>
   );
 };
