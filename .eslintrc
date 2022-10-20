@@ -10,6 +10,7 @@
   "rules": {
     "react/jsx-no-constructed-context-values": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
     "max-len": "off",
     "no-restricted-syntax": "off",
     "no-console": "off",

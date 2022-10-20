@@ -1,29 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Box, Button, Center,
+  Button, Center,
 } from '@chakra-ui/react';
 
-export const CurrentAddressBtn = () => (
-  <Box>
+interface Props {
+  linkTo: string;
+  bgColor?: string;
+  children: JSX.Element | string;
+}
+
+export const ProfileCommonBtn = (props: Props) => {
+  const { bgColor = 'blue', children, linkTo } = props;
+
+  return (
     <Center>
-      <Link to="/user/address/">
+      <Link to={linkTo}>
         <Button
           display={{ base: 'center', md: 'inline-flex' }}
           fontSize="sm"
           fontWeight={600}
           type="submit"
-          bg="blue.400"
+          bg={`${bgColor}.400`}
           color="white"
           mt={5}
           _hover={{
-            bg: 'blue.500',
+            bg: `${bgColor}.500`,
           }}
         >
-          Show addresses
+          {children}
         </Button>
       </Link>
     </Center>
-  </Box>
-
-);
+  );
+};

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {
-  Box, Button, Text, Stack, Center,
+  Box, Text, Stack,
 } from '@chakra-ui/react';
+import { ProfileCommonBtn } from './ProfileCommonBtn';
 
 export const AddUserAddressBtn = () => (
   <Box>
@@ -18,24 +18,10 @@ export const AddUserAddressBtn = () => (
         Address information
       </Text>
     </Stack>
-    <Center>
-      <Link to="/user/address/form">
-        <Button
-          display={{ base: 'center', md: 'inline-flex' }}
-          fontSize="sm"
-          fontWeight={600}
-          type="submit"
-          bg="blue.400"
-          color="white"
-          mt={5}
-          _hover={{
-            bg: 'blue.500',
-          }}
-        >
-          Add new address
-        </Button>
-      </Link>
-    </Center>
+
+    <ProfileCommonBtn linkTo="/user/address/form">
+      Add new address
+    </ProfileCommonBtn>
   </Box>
 
 );

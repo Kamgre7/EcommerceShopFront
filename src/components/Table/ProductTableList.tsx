@@ -29,7 +29,7 @@ export const ProductTableList = () => {
 
   return (
     <Center>
-      <TableContainer>
+      <TableContainer mt={5}>
         <Table variant="striped" colorScheme="teal" width="40vw" size="sm">
           <TableCaption>Shop product list</TableCaption>
           <Thead>

@@ -29,7 +29,7 @@ export const UserTableList = () => {
 
   return (
     <Center>
-      <TableContainer>
+      <TableContainer mt={5}>
         <Table variant="striped" colorScheme="teal" width="40vw" size="sm">
           <TableCaption>Users list</TableCaption>
           <Thead>

@@ -75,7 +75,6 @@ export const ProductForm = () => {
                 });
 
                 const data:CreateProductResponse = await res.json();
-                console.log(data);
                 if ('isSuccess' in data) {
                   toast({
                     title: data.message,

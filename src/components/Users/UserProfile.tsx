@@ -6,8 +6,8 @@ import { useAuth } from '../../hooks/useAuth';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { UserEditPwdForm } from '../Forms/UserEditPwdForm';
 import { AddUserAddressBtn } from '../Btn/AddUserAddressBtn';
-import { CurrentAddressBtn } from '../Btn/CurrentAddressBtn';
 import { DeleteAccountBtn } from '../Btn/DeleteAccountBtn';
+import { ProfileCommonBtn } from '../Btn/ProfileCommonBtn';
 
 export const UserProfile = () => {
   const [userInfo, setUserInfo] = useState<UserInfoSuccessfulResponse | null>(null);
@@ -44,7 +44,11 @@ export const UserProfile = () => {
         direction="column"
       >
         <AddUserAddressBtn />
-        <CurrentAddressBtn />
+
+        <ProfileCommonBtn linkTo="/user/address">
+          Show addresses
+        </ProfileCommonBtn>
+
         <DeleteAccountBtn />
       </Flex>
 
