@@ -34,6 +34,7 @@ import { ProductEditForm } from './components/Forms/ProductEditForm';
 import { CategoryForm } from './components/Forms/CategoryForm';
 import { ProductTableList } from './components/Table/ProductTableList';
 import { UserTableList } from './components/Table/UserTableList';
+import { RecoverPasswordForm } from './components/Forms/RecoverPasswordForm';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
@@ -92,6 +93,7 @@ export const App = () => {
               <Route path="/" element={<HomeView />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/restart-password" element={<ForgotPasswordForm />} />
+              <Route path="/recover-password" element={<RecoverPasswordForm />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/product/:id" element={<SingleProductDetails />} />
               <Route path="/product/find/:searchTerm" element={<SearchProductView />} />

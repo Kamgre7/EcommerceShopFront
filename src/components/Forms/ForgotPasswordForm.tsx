@@ -10,11 +10,15 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue, FormErrorMessage, VStack,
+  useColorModeValue, FormErrorMessage, VStack, useToast,
 } from '@chakra-ui/react';
+import { RecoverUserPwdResponse } from 'types';
+import { useNavigate } from 'react-router-dom';
 
 export const ForgotPasswordForm = () => {
-  console.log('forgot password form');
+  const toast = useToast();
+  const navigate = useNavigate();
+
   return (
     <Flex
       align="center"
@@ -38,8 +42,31 @@ export const ForgotPasswordForm = () => {
             initialValues={{
               email: '',
             }}
-            onSubmit={(values) => {
-              alert(JSON.stringify(values, null, 2));
+            onSubmit={async (values) => {
+              const res = await fetch('http://localhost:3001/user/recover-password', {
+                method: 'PUT',
+                credentials: 'include',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(values),
+              });
+
+              const data:RecoverUserPwdResponse = await res.json();
+
+              if (!data.isSuccess) {
+                toast({
+                  title: data.message,
+                  status: 'warning',
+                  duration: 3000,
+                  isClosable: true,
+                });
+              } else {
+                navigate('/recover-password', {
+                  replace: true,
+                  state: {
+                    email: values.email,
+                  },
+                });
+              }
             }}
           >
             {({ handleSubmit, errors, touched }) => (
