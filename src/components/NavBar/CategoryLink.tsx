@@ -4,7 +4,12 @@ import { Box, useColorModeValue } from '@chakra-ui/react';
 import { CategoryFilterResponse } from 'types';
 
 export const CategoryLink = ({ children, category }: { children: ReactNode, category: CategoryFilterResponse }) => (
-  <Link to={`product/category/${category.name.toLowerCase()}`}>
+  <Link
+    to={`product/category/${category.name.toLowerCase()}`}
+    state={{
+      category: category.id,
+    }}
+  >
     <Box
       px={2}
       py={1}

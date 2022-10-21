@@ -60,7 +60,7 @@ export const UserAddressForm = () => {
                   duration: 3000,
                   isClosable: true,
                 });
-                navigate('user/address', { replace: true });
+                navigate('/user/address', { replace: true });
               } else {
                 toast({
                   title: 'Something went wrong. Try again later.',
