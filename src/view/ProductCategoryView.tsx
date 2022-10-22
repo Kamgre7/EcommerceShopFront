@@ -30,7 +30,6 @@ export const ProductCategoryView = () => {
     (async () => {
       const res = await fetch(`http://localhost:3001/product/category/${location.state.category}`);
       const data:ProductFilterResponse[] = await res.json();
-      console.log(products);
       setProducts(data);
     })();
   }, [products]);

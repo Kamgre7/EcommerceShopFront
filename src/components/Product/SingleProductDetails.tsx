@@ -37,10 +37,6 @@ export const SingleProductDetails = () => {
 
   const toast = useToast();
 
-  if (!context) {
-    return null;
-  }
-
   useEffect(() => {
     (async () => {
       try {
@@ -56,6 +52,10 @@ export const SingleProductDetails = () => {
 
   if (singleProduct === null) {
     return <LoadingSpinner />;
+  }
+
+  if (!context) {
+    return null;
   }
 
   const {
