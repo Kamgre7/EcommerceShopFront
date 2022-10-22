@@ -30,7 +30,7 @@ export const CategoryForm = () => {
     >
       <Stack spacing={8} mx="auto" maxW="2xl" py={12} px={6}>
         <Stack align="center">
-          <Heading fontSize={{ base: '3xl', md: '4xl' }}>Add new product to shop</Heading>
+          <Heading fontSize={{ base: '3xl', md: '4xl' }}>Add new category to shop</Heading>
         </Stack>
         <Box
           rounded="lg"

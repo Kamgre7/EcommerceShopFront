@@ -78,6 +78,11 @@ $ npm run start
 
 ![image](https://user-images.githubusercontent.com/105069884/194761208-1e5053dd-4252-47ab-a2e9-06fd84e99152.png)
 
+- products searched by searchbar
+
+![image](https://user-images.githubusercontent.com/105069884/197332784-c187b150-dd8a-4799-83fd-f3ad422754a1.png)
+
+
 - product form - created with chakra ui + formik implementation - all inputs are required when user want to add product, only admin can add product to shop
 
 ![image](https://user-images.githubusercontent.com/105069884/194761306-21612147-bfae-4945-bd9b-8ac1568ba66c.png)
@@ -131,6 +136,37 @@ $ npm run start
 
 ![image](https://user-images.githubusercontent.com/105069884/196056692-e407f64b-1341-44eb-b25f-51e891f13e42.png)
 
+### Admin profile view
+
+- admin have additional card - shop configuration
+
+![image](https://user-images.githubusercontent.com/105069884/197332353-db679bee-7c6d-4dbb-a8ca-9e2296a8e9b0.png)
+
+- view of shop configuration 
+
+![image](https://user-images.githubusercontent.com/105069884/197332379-16b96e61-a8c0-4c5d-80b0-7f8576cf95ae.png)
+
+- add new category form 
+
+![image](https://user-images.githubusercontent.com/105069884/197332449-a6e04621-4b34-4afd-83f5-03618d5780c0.png)
+
+- view of user list 
+
+![image](https://user-images.githubusercontent.com/105069884/197332537-8b7b3c82-fd29-47a1-8f69-92acb95488e7.png)
+
+- view of product list 
+
+![image](https://user-images.githubusercontent.com/105069884/197332553-11a4ee5f-be13-42a8-af69-17e3dc29af2c.png)
+
+- clicking edit icon navigate admin to edit product form
+
+![image](https://user-images.githubusercontent.com/105069884/197332604-1b7c6526-c46d-483e-8984-522387a6af4d.png)
+
+- clicking delete icon - product will be deleted from shop
+
+![image](https://user-images.githubusercontent.com/105069884/197332659-cdc2c829-12da-4db6-a5a9-18e8eaccfbf4.png)
+
+
 
 ### Forms view
 
@@ -146,17 +182,26 @@ $ npm run start
 
 ![image](https://user-images.githubusercontent.com/105069884/194765170-31a59a39-b4ea-496e-a5c9-741553e0c574.png)
 
+- after typing user email, user will be navigated to next form 
+
+![image](https://user-images.githubusercontent.com/105069884/197332906-61ccca59-6a5b-4f79-99f8-fd58ef5f5faf.png)
+
+
 - add new address form
 
 ![image](https://user-images.githubusercontent.com/105069884/196056598-c4747af3-28b0-4453-98c4-fdc6f87f4ccb.png)
 
 
 ### 🧭 TODO
-- add admin panel view - updating/delete product
+✅ add admin panel view - updating/delete product
+
+✅ order - finalization of purchases
+
+✅ user profile - editing information
+
 - sidebar for searching items by price/popularity etc.
-- order - finalization of purchases 
 - refactor code of components
- - user profile - editing information
+
 
 ### Author
 
