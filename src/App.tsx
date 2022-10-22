@@ -20,11 +20,21 @@ import { SingleProductDetails } from './components/Product/SingleProductDetails'
 import { ProductCategoryView } from './view/ProductCategoryView';
 import { RequiredAuth } from './components/RequiredAuth/RequiredAuth';
 import { UnauthorizedView } from './view/UnauthorizedView';
-import { Admin } from './components/Admin/Admin';
 import { NavigationView } from './view/NavigationView';
 import { FooterView } from './view/FooterView';
 import { BasketView } from './view/BasketView';
 import { OrderView } from './view/OrderView';
+import { AdminView } from './view/AdminView';
+import { OrderHistory } from './components/Order/OrderHistory';
+import { SearchProductView } from './view/SearchProductView';
+import { UserProfile } from './components/Users/UserProfile';
+import { UserAddressForm } from './components/Forms/UserAddressForm';
+import { UserAddressList } from './components/Users/UserAddressList';
+import { ProductEditForm } from './components/Forms/ProductEditForm';
+import { CategoryForm } from './components/Forms/CategoryForm';
+import { ProductTableList } from './components/Table/ProductTableList';
+import { UserTableList } from './components/Table/UserTableList';
+import { RecoverPasswordForm } from './components/Forms/RecoverPasswordForm';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryFilterResponse[]>([]);
@@ -83,20 +93,29 @@ export const App = () => {
               <Route path="/" element={<HomeView />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/restart-password" element={<ForgotPasswordForm />} />
+              <Route path="/recover-password" element={<RecoverPasswordForm />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/product/:id" element={<SingleProductDetails />} />
+              <Route path="/product/find/:searchTerm" element={<SearchProductView />} />
               <Route path="/product/category/:categoryName" element={<ProductCategoryView />} />
               <Route path="/unauthorized" element={<UnauthorizedView />} />
 
               <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN]} />}>
                 <Route path="/product/form" element={<ProductForm />} />
-                {/* <Route path="/category/form" element={<AddCategoryForm/>}/>  */}
-                <Route path="/admin" element={<Admin />} />
+                <Route path="/product/edit/:id" element={<ProductEditForm />} />
+                <Route path="/product/list" element={<ProductTableList />} />
+                <Route path="/category/form" element={<CategoryForm />} />
+                <Route path="/user/list" element={<UserTableList />} />
+                <Route path="/admin" element={<AdminView />} />
               </Route>
 
               <Route element={<RequiredAuth allowedRole={[UserRole.ADMIN, UserRole.USER]} />}>
                 <Route path="/basket" element={<BasketView />} />
+                <Route path="/user/edit" element={<UserProfile />} />
+                <Route path="/user/address" element={<UserAddressList />} />
+                <Route path="/user/address/form" element={<UserAddressForm />} />
                 <Route path="/order" element={<OrderView />} />
+                <Route path="/order/history" element={<OrderHistory />} />
               </Route>
 
               <Route path="/*" element={<NotFoundView />} />

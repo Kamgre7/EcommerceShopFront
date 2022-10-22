@@ -19,13 +19,14 @@ import { Field, Formik } from 'formik';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { ShopContext } from '../../context/shop.context';
 
-interface SingleProductDetailsInterface {
+export interface SingleProductDetailsInterface {
   id: string;
   name: string;
   description: string;
   price:number;
   sku: string;
   productInventory: { quantity:number };
+  category: { id: string }
 }
 
 export const SingleProductDetails = () => {
@@ -35,10 +36,6 @@ export const SingleProductDetails = () => {
   const context = useContext(ShopContext);
 
   const toast = useToast();
-
-  if (!context) {
-    return null;
-  }
 
   useEffect(() => {
     (async () => {
@@ -55,6 +52,10 @@ export const SingleProductDetails = () => {
 
   if (singleProduct === null) {
     return <LoadingSpinner />;
+  }
+
+  if (!context) {
+    return null;
   }
 
   const {

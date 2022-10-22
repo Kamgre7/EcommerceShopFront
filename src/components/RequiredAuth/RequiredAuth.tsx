@@ -12,8 +12,7 @@ export const RequiredAuth = ({ allowedRole }: Props) => {
   const location = useLocation();
 
   return (
-  // eslint-disable-next-line no-nested-ternary
-    allowedRole.some((role) => user?.userRole === role)
+    allowedRole.some((role) => user?.role === role)
       ? <Outlet />
       : user
         ? <Navigate to="/unauthorized" state={{ from: location }} replace />

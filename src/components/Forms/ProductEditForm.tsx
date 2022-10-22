@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
 import {
   Flex,
@@ -14,13 +14,16 @@ import {
   VStack,
   Textarea, Select, useToast,
 } from '@chakra-ui/react';
-import { CreateProductResponse } from 'types';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { EditProductInfoResponse } from 'types';
 import { ShopContext } from '../../context/shop.context';
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
+import { SingleProductDetailsInterface } from '../Product/SingleProductDetails';
 
-export const ProductForm = () => {
+export const ProductEditForm = () => {
+  const [productInfo, setProductInfo] = useState<SingleProductDetailsInterface | null>(null);
+  const { id: productId } = useParams();
   const toast = useToast();
-
   const navigate = useNavigate();
   const context = useContext(ShopContext);
 
@@ -28,17 +31,40 @@ export const ProductForm = () => {
     return null;
   }
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/product/${productId}`, {
+          credentials: 'include',
+        });
+        const data:SingleProductDetailsInterface = await res.json();
+        setProductInfo(data);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
+
   const { categories } = context;
+
+  if (productInfo === null) {
+    return <LoadingSpinner />;
+  }
+
+  const {
+    price, sku, name, description, productInventory, category,
+  } = productInfo;
 
   return (
     <Flex
+      direction="column"
       align="center"
       justify="center"
       bg={useColorModeValue('white', 'gray.800')}
     >
       <Stack spacing={8} mx="auto" maxW="2xl" py={12} px={6}>
         <Stack align="center">
-          <Heading fontSize={{ base: '3xl', md: '4xl' }}>Add new product to shop</Heading>
+          <Heading fontSize={{ base: '3xl', md: '4xl' }}>Edit product</Heading>
         </Stack>
         <Box
           rounded="lg"
@@ -48,58 +74,50 @@ export const ProductForm = () => {
         >
           <Formik
             initialValues={{
-              name: '',
-              description: '',
-              quantity: 1,
-              price: 1,
-              sku: '',
-              categoryId: '',
-              photo: '',
+              name,
+              description,
+              quantity: productInventory.quantity,
+              price,
+              sku,
+              categoryId: category.id,
             }}
             onSubmit={async (values) => {
-              const formData = new FormData();
-
-              for (const [key, value] of Object.entries(values)) {
-                if (key !== 'photo') {
-                  formData.append(key, String(value));
-                } else {
-                  formData.append('photo', values.photo);
-                }
-              }
-
               try {
-                const res = await fetch('http://localhost:3001/product/', {
-                  method: 'POST',
+                const res = await fetch('http://localhost:3001/product/edit', {
+                  method: 'PATCH',
                   credentials: 'include',
-                  body: formData,
+                  headers: { 'Content-type': 'application/json' },
+                  body: JSON.stringify({
+                    id: productId,
+                    ...values,
+                  }),
                 });
 
-                const data:CreateProductResponse = await res.json();
-                if ('isSuccess' in data) {
+                const data:EditProductInfoResponse = await res.json();
+
+                if (data.isSuccess) {
                   toast({
                     title: data.message,
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                  });
-                } else {
-                  toast({
-                    title: `Product ${data.name} was successfully created`,
                     status: 'success',
                     duration: 3000,
                     isClosable: true,
                   });
-                  navigate('/', { replace: true });
+                  navigate('/admin', { replace: true });
+                } else {
+                  toast({
+                    title: data.message,
+                    status: 'warning',
+                    duration: 3000,
+                    isClosable: true,
+                  });
                 }
               } catch (err) {
-                if (err instanceof Error) {
-                  console.error(err.message);
-                }
+                console.error(err);
               }
             }}
           >
             {({
-              handleSubmit, errors, touched, setFieldValue,
+              handleSubmit, errors, touched,
             }) => (
               <form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
@@ -211,18 +229,6 @@ export const ProductForm = () => {
                         </Field>
                         <FormErrorMessage>{errors.categoryId}</FormErrorMessage>
                       </FormControl>
-
-                      <FormControl mb="15px">
-                        <FormLabel htmlFor="photo">Photo</FormLabel>
-                        <input
-                          id="photo"
-                          name="photo"
-                          type="file"
-                          accept="image/*"
-                          onChange={(e: React.FormEvent<HTMLInputElement>) => setFieldValue('photo', (e.target as HTMLInputElement).files![0])}
-                        />
-                      </FormControl>
-
                     </Flex>
 
                     <Flex ml={{ base: '0', md: '20px' }}>
@@ -265,7 +271,7 @@ export const ProductForm = () => {
                         bg: 'green.500',
                       }}
                     >
-                      Add product
+                      Save product
                     </Button>
                   </Stack>
                 </VStack>
@@ -274,6 +280,9 @@ export const ProductForm = () => {
           </Formik>
         </Box>
       </Stack>
+      <Link to="/admin">
+        <Button>Go back to admin page </Button>
+      </Link>
     </Flex>
   );
 };

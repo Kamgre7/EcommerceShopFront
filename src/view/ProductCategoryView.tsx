@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { CategoryFilterResponse, ProductFilterResponse } from 'types';
 import { Flex } from '@chakra-ui/react';
 import { LoadingSpinner } from '../components/LoadingSpinner/LoadingSpinner';
@@ -7,9 +7,16 @@ import { ProductList } from '../components/Product/ProductList';
 import { ShopContext } from '../context/shop.context';
 import { Category } from '../components/Category/Category';
 
+type LocationProps = {
+  state: {
+    from: Location;
+    category: string;
+  }
+};
+
 export const ProductCategoryView = () => {
   const [products, setProducts] = useState<ProductFilterResponse[]>([]);
-  const { categoryName } = useParams();
+  const location = useLocation() as unknown as LocationProps;
 
   const context = useContext(ShopContext);
 
@@ -21,7 +28,7 @@ export const ProductCategoryView = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:3001/product/category/${categoryName}`);
+      const res = await fetch(`http://localhost:3001/product/category/${location.state.category}`);
       const data:ProductFilterResponse[] = await res.json();
       setProducts(data);
     })();
@@ -30,9 +37,7 @@ export const ProductCategoryView = () => {
   if (products.length === 0) {
     return <LoadingSpinner />;
   }
-
-  const singleCategory = categories.find((category) => category.id === products[0].category) as CategoryFilterResponse;
-
+  const singleCategory = categories.find((category) => category.id === location.state.category) as CategoryFilterResponse;
   return (
 
     <Flex

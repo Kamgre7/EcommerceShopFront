@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Field } from 'formik';
 import {
   Flex,
@@ -9,28 +9,15 @@ import {
   Stack,
   Button,
   Heading,
-  Text,
-  useColorModeValue, FormErrorMessage, VStack, InputGroup, InputRightElement, IconButton, useToast,
+  useColorModeValue, FormErrorMessage, VStack, useToast,
 } from '@chakra-ui/react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { RegisterUserResponse } from 'types';
+import { useNavigate } from 'react-router-dom';
+import { CreateUserAddressResponse } from 'types';
 
-type LocationProps = {
-  state: {
-    from: Location;
-  }
-};
-
-export const RegisterForm = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const pwdVisibility = () => (showPassword ? setShowPassword(false) : setShowPassword(true));
+export const UserAddressForm = () => {
   const toast = useToast();
 
   const navigate = useNavigate();
-  const location = useLocation() as unknown as LocationProps;
-
-  const from = location.state?.from?.pathname || '/';
 
   return (
     <Flex
@@ -40,10 +27,7 @@ export const RegisterForm = () => {
     >
       <Stack spacing={8} mx="auto" maxW="2xl" py={12} px={6}>
         <Stack align="center">
-          <Heading fontSize="4xl">Sign up to your account</Heading>
-          <Text fontSize="lg">
-            and enjoy our store!
-          </Text>
+          <Heading fontSize="4xl">Add new address</Heading>
         </Stack>
         <Box
           rounded="lg"
@@ -53,10 +37,6 @@ export const RegisterForm = () => {
         >
           <Formik
             initialValues={{
-              firstName: '',
-              lastName: '',
-              email: '',
-              password: '',
               address: '',
               city: '',
               postalCode: '',
@@ -64,30 +44,30 @@ export const RegisterForm = () => {
               mobilePhone: '',
             }}
             onSubmit={async (values) => {
-              const res = await fetch('http://localhost:3001/user/register', {
+              const res = await fetch('http://localhost:3001/user/address', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(values),
               });
 
-              const data: RegisterUserResponse = await res.json();
+              const data:CreateUserAddressResponse = await res.json();
 
-              if ('isSuccess' in data) {
+              if (data.isSuccess) {
                 toast({
-                  title: 'Account with this email is already registered!',
-                  status: 'error',
-                  duration: 3000,
-                  isClosable: true,
-                });
-              } else {
-                toast({
-                  title: `Congratulations! Account ${data.email} was created successfully!`,
+                  title: 'New address added!',
                   status: 'success',
                   duration: 3000,
                   isClosable: true,
                 });
-                navigate(from, { replace: true });
+                navigate('/user/address', { replace: true });
+              } else {
+                toast({
+                  title: 'Something went wrong. Try again later.',
+                  status: 'success',
+                  duration: 3000,
+                  isClosable: true,
+                });
               }
             }}
           >
@@ -95,94 +75,6 @@ export const RegisterForm = () => {
               <form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
                   <Flex direction={{ base: 'column', md: 'row' }}>
-                    <Flex direction="column">
-                      <FormControl isInvalid={!!errors.firstName && touched.firstName}>
-                        <FormLabel htmlFor="firstName">First name</FormLabel>
-                        <Field
-                          as={Input}
-                          id="firstName"
-                          name="firstName"
-                          type="text"
-                          validate={(value:string) => {
-                            let error;
-
-                            if (value.length <= 2) {
-                              error = 'First name must contain at least 3 characters';
-                            } else if (value.length >= 25) {
-                              error = 'First name cannot be longer than 25 characters';
-                            }
-                            return error;
-                          }}
-                        />
-                        <FormErrorMessage>{errors.firstName}</FormErrorMessage>
-                      </FormControl>
-                      <FormControl isInvalid={!!errors.lastName && touched.lastName}>
-                        <FormLabel htmlFor="lastName">Last name</FormLabel>
-                        <Field
-                          as={Input}
-                          id="lastName"
-                          name="lastName"
-                          type="text"
-                          validate={(value:string) => {
-                            let error;
-
-                            if (value.length <= 2) {
-                              error = 'Last name must contain at least 3 characters';
-                            } else if (value.length >= 25) {
-                              error = 'Last name cannot be longer than 25 characters';
-                            }
-                            return error;
-                          }}
-                        />
-                        <FormErrorMessage>{errors.lastName}</FormErrorMessage>
-                      </FormControl>
-                      <FormControl isInvalid={!!errors.email && touched.email}>
-                        <FormLabel htmlFor="email">Email Address</FormLabel>
-                        <Field
-                          as={Input}
-                          id="email"
-                          name="email"
-                          type="email"
-                          validate={(value:string) => {
-                            let error;
-
-                            if (!value.includes('@')) {
-                              error = 'Email address must contain @';
-                            } else if (value.length <= 5) {
-                              error = 'Email must contain at least 6 characters';
-                            } else if (value.length > 255) {
-                              error = 'Email cannot be longer than 255 characters';
-                            }
-                            return error;
-                          }}
-                        />
-                        <FormErrorMessage>{errors.email}</FormErrorMessage>
-                      </FormControl>
-                      <FormControl isInvalid={!!errors.password && touched.password}>
-                        <FormLabel htmlFor="password">Password</FormLabel>
-                        <InputGroup>
-                          <Field
-                            as={Input}
-                            id="password"
-                            name="password"
-                            type={showPassword ? 'text' : 'password'}
-                            validate={(value:string) => {
-                              let error;
-
-                              if (value.length <= 5) {
-                                error = 'Password must contain at least 6 characters';
-                              }
-
-                              return error;
-                            }}
-                          />
-                          <InputRightElement width="4.5rem" right={{ base: '-20px', md: '-15px' }}>
-                            <IconButton aria-label="Show password" icon={showPassword ? <ViewOffIcon /> : <ViewIcon />} onClick={pwdVisibility} />
-                          </InputRightElement>
-                        </InputGroup>
-                        <FormErrorMessage>{errors.password}</FormErrorMessage>
-                      </FormControl>
-                    </Flex>
                     <Flex ml={{ base: '0', md: '20px' }} direction={{ base: 'row', md: 'column' }}>
                       <FormControl isInvalid={!!errors.address && touched.address}>
                         <FormLabel htmlFor="address">Address</FormLabel>
@@ -299,7 +191,7 @@ export const RegisterForm = () => {
                         bg: 'blue.500',
                       }}
                     >
-                      Sign up
+                      Add new address
                     </Button>
                   </Stack>
                 </VStack>
